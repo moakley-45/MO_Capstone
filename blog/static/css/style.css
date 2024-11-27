@@ -1,3 +1,14 @@
+/* Body Styles*/
+
+body {
+    background-color: #123524;
+    color: #ffffff;
+}
+
+main {
+    padding: 0 20px !important;
+}
+
 h1 {
     color: red;
 }

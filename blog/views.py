@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Post
+from .models import Blog_Post
 
-class PostList(generic.ListView):
-    queryset = Post.objects.all()
-    template_name = "blog_main.html"
+class BlogMainView(generic.ListView):
+    model = Blog_Post
+    template_name = "blog/blog_main.html"
+    context_object_name = 'blog_posts'
+    paginate_by = 5 
+
+    def get_queryset(self):
+        return Blog_Post.objects.all().order_by('-created_on') 

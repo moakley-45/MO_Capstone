@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
+{% block content %}
+
 <body>
-    <h1>Welcome to <em>Simply Sprouts!</em></h1>
-    <p>This is your home page.</p>
+    <h1>Blog Posts</h1>
+    {% for blog_post in blog_posts %}
+    <h2><a href="{% url 'blog_post_detail' blog_post.slug %}">{{blog_post.title}}</a></h2>
+    <p>{{blog_post.excerpt}}</p>
+    <p>Author: {{blog_post.author}}</p>
+    {% endfor %}
 </body>
 </html>
 
