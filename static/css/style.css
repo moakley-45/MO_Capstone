@@ -12,3 +12,11 @@ main {
 h1 {
     color: red;
 }
+
+/* Blog Styles */
+
+h1.Blog_Title.p-4 {
+    text-align: center;
+    font-size: 5rem;
+
+}
