@@ -3,20 +3,24 @@
 {% block content %}
 
 <body>
-    <h1 class="blog-title p-4">Blog Posts</h1>
+    <h1 class="blog-title p-4" style="text-align: center; font-size: 5rem;">Blog Posts</h1>
     <div class="container">
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {% for blog_post in blog_posts %}
-            <div class="card blog-article-listing" style="width: 18rem;">
-    <a href="{% url 'blog_post_detail' blog_post.slug %}" class="post-link"><h2 class="blog-article-title">{{blog_post.title}}</h2></a>
-    <p class="blog-excerpt">{{blog_post.excerpt}}</p>
-    <p class="blog-author">Author: {{blog_post.author}}</p>
-      </div>
-      {% endfor %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title blog-article-title">
+                            <a href="{% url 'blog_post_detail' blog_post.slug %}" class="post-link">{{blog_post.title}}</a>
+                        </h2>
+                        <p class="card-text blog-excerpt">{{blog_post.excerpt}}</p>
+                        <p class="card-text blog-author">Author: {{blog_post.author}}</p>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
     </div>
-  </div>
-    
 </body>
-</html>
 
 {% endblock %}
