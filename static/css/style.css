@@ -13,6 +13,20 @@ h1 {
     color: red;
 }
 
+/* Modal Styles */
+
+.modal-content {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Message Styles */
+
+div#msg {
+    background: #17a2b8 !important;
+    border: 1px solid #ffffff;
+}
+
 /* Blog Styles */
 
 h1.Blog_Title.p-4 {

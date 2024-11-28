@@ -1,6 +1,6 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %} 
 {% load static %}
+{% load crispy_forms_tags %}
 
 
 {% block content %}
@@ -52,8 +52,8 @@
               {% endif %}
               
               {% if user.is_authenticated and comment.author == user %}
-              <button class="btn btn-edit btn-info" comment_id="{{ comment.id }}">Edit</button>
-              <button class="btn btn-delete btn-danger" comment_id="{{ comment.id }}">Delete</button>
+              <button class="btn btn-info btn-edit" comment_id="{{ comment.id }}">Edit</button>
+              <button class="btn btn-danger btn-delete" comment_id="{{ comment.id }}">Delete</button>
               {% endif %}
               <hr>
               <span class="font-weight-normal"> Commented at: {{ comment.created_on }}</span>
@@ -83,15 +83,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-  <!-- Displaying Comments -->
-
-
-    <!-- Comment Form -->
   
 
 </body>
@@ -124,5 +115,9 @@
 {% endblock %}
 
 {% block extras %}
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<!-- native JavaScript -->
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
