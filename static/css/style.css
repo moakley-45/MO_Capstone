@@ -26,3 +26,44 @@ p.blog_post-details {
     font-weight: 900;
     font-size: 0.75rem;
 }
+
+/* Blog Comment Styles */
+
+.sticky-column {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px; 
+    width: 85%; 
+    margin-left: auto; 
+  }
+  
+.container {
+    max-width: 100%;
+}
+
+.p-2.comments {
+    background: grey;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+p.approval {
+    background: yellow;
+    border-radius: 8px;
+    border: grey 1px solid;
+    padding: 0 8px;
+    font-weight: 700;
+}
+
+
+/* Media Queries */
+
+/* Adjust column widths */
+  @media (min-width: 992px) {
+    .col-lg-8 {
+      width: 60%;
+    }
+    .col-lg-4 {
+      width: 40%;
+    }
+  }
