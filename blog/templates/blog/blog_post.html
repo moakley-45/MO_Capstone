@@ -3,6 +3,8 @@
 {% block content %}
 
 <body>
+
+    <!-- Main Blog Page content-->>
     <h1>{{blog_post.title}}</h1>
     <p>Written by: {{blog_post.author}}</p>
     <hr>
@@ -11,7 +13,33 @@
     </article>
     <hr>
     <h5>{{blog_post.created_on}}</h5>
+
+    <!-- Comments Section -->
+    <h2>Comments</h2>
+    {% for comment in blog_post.comments.all %}
+        <div class="comment">
+            <p>{{ comment.body }}</p>
+            <p>By {{ comment.author }} on {{ comment.created_on }}</p>
+            {% if user == comment.author %}
+                <a href="{% url 'edit_comment' comment.id %}">Edit</a>
+                <a href="{% url 'delete_comment' comment.id %}">Delete</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <!-- Comment Form -->
+    {% if user.is_authenticated %}
+        <h3>Leave a comment</h3>
+        <form method="post" action="{% url 'add_comment' blog_post.id %}">
+            {% csrf_token %}
+            <textarea name="body" required></textarea>
+            <button type="submit">Submit Comment</button>
+        </form>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">login</a> to leave a comment.</p>
+    {% endif %}
 </body>
-</html>
 
 {% endblock %}
