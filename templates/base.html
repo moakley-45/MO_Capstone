@@ -80,7 +80,7 @@
   {% if user.is_authenticated %}
     <p class="text-end m-3">Hello, {{ user }}!</p>
     {% else %}
-    <p class="text-end m-3">You are not logged in - please <a href="{% url 'account_signup' %}">Register</a>to access the site's full features!</p>
+    <p class="text-end m-3">You are not logged in - please <a href="{% url 'account_signup' %}">Register</a> to access the site's full features!</p>
     {% endif %}
     
   <!-- User Messages -->
