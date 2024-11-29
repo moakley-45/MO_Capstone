@@ -16,19 +16,17 @@
     </article>
     <hr>
     <!-- Comments Section -->
-    <h2>Comments</h2>
+    
  <div class="row">
     <div class="col-12">
       <strong class="text-secondary">
-        <i class="far fa-comments"></i> {{ comment_count }}
+        <h3><span>Comments:  <i class="far fa-comments"></i> {{ comment_count }}</span></h3>
       </strong>
     </div>
     <div class="col-12">
       <hr>
     </div>
   </div>
-
-
 
     <div class="container">
       <div class="row">
@@ -68,7 +66,7 @@
         <div class="card-body">
     {% if user.is_authenticated %}
     <h3>Leave a comment:</h3>
-    <p>Posting as: {{ user.username }}</p>
+    <p><em>Posting as: {{ user.username }}</em></p>
     <form id="commentForm" method="post"
       style="margin-top: 1.3em;">
       {{ comment_form | crispy }}
