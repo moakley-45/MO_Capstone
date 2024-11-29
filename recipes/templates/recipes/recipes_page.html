@@ -12,7 +12,7 @@
     <p class="blog_post-details">Written by: <u>{{recipe.creator}}</u> | {{recipe.created_on}} </p>
     <span class="'recipe_serves"><i class="fa-solid fa-user-group"></i> Serves: {{ recipe.serves }}</span>
     <hr>
-    <img class="recipe_image img-fluid" src=" {{ recipe.image.url }}"
+    <img class="recipe_image img-fluid mx-auto" src=" {{ recipe.image.url }}"
                                   alt="{{ post.title }}">
     <hr>
     <article class="recipe_notes">
@@ -23,16 +23,16 @@
 
     <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-6">
-            <div class="p-3 border bg-light">
+          <div class="col-12 col-lg-6 mb-3">
+            <div class="p-3 border bg-dark">
               <article class="recipe_ingredients">
         <h3>Ingredients:</h3>  
         {{recipe.ingredients | safe }}
     </article>
             </div>
           </div>
-          <div class="col-12 col-lg-6">
-            <div class="p-3 border bg-light">
+          <div class="col-12 col-lg-6 mb-3">
+            <div class="p-3 border bg-dark">
                   <article class="recipe_method">
         <h3>Method:</h3>  
         {{recipe.method | safe }}

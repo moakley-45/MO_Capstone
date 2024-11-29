@@ -11,6 +11,8 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <h2 class="card-title recipe-title">
+                            <img class="recipe_image img-fluid" src=" {{ recipe.image.url }}"
+                                  alt="{{ post.title }}">
                             <a href="{% url 'recipes:recipes_page' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
                         </h2>
                         <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
