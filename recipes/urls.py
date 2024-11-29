@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+app_name = 'recipes' 
+
 urlpatterns = [
-    path('recipes/', views.members, name='recipes'),
+    path('', views.RecipeView.as_view(), name='recipes_main'),
+    path('<slug:slug>/', views.recipes_page, name='recipes_page'),
 ]

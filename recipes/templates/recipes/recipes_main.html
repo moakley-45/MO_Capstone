@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+    <h1 class="recipes-title p-4" style="text-align: center; font-size: 5rem;">All Recipes</h1>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {% for recipe in recipes_pages %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title recipe-title">
+                            <a href="{% url 'recipes:recipes_page' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
+                        </h2>
+                        <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
+                    </div>
+                </div>
+            </div>
+          {% empty %}
+            <p>No recipes found.</p>
+          {% endfor %}
+        </div>
+    </div>
+</body>
+
+
+{% endblock %}
