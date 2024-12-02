@@ -1,3 +1,5 @@
+{% load static %}
+
 {% url 'home' as home_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -16,58 +18,60 @@
     
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Simply Sprouts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'recipes:recipes_main' %}">All Recipes</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Recipes by cuisine
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Non-specific</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">British Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Italian Cuisine</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Middle Eastern Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Ethiopian Cuisine</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">American Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Mexican Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Caribbean Cuisine</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Indian Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Thai Cuisine</a></li>
-              <li><a class="dropdown-item" href="#">Japanese Cuisine</a></li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Simply Sprouts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'recipes:recipes_main' %}">All Recipes</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Recipes by cuisine
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Non-specific</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">British Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Italian Cuisine</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Middle Eastern Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Ethiopian Cuisine</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">American Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Mexican Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Caribbean Cuisine</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Indian Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Thai Cuisine</a></li>
+                        <li><a class="dropdown-item" href="#">Japanese Cuisine</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_main' %}">Our Blog</a>
+                </li>
+                {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" aria-current="page" href="{% url 'profile' %}">Edit Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+    </li>
+{% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page" href="{% url 'account_signup' %}">Register</a>
+                    </li>
+                {% endif %}
             </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="{% url 'blog_main' %}">Our Blog</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-          <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-          href="{% url 'account_logout' %}">Logout</a>
-         </li>
-          {% else %}
-        <li class="nav-item">
-        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-        href="{% url 'account_login' %}">Login</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-          href="{% url 'account_signup' %}">Register</a>
-        </li>
-        {% endif %}
-        </ul>
+        </div>
+    </div>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
@@ -78,10 +82,14 @@
 
   <!-- User confirmation-->
   {% if user.is_authenticated %}
-    <p class="text-end m-3">Hello, {{ user }}!</p>
-    {% else %}
+    <div class="text-end m-3 d-flex align-items-center justify-content-end">
+      <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="{{ user.username }}" class="rounded-circle me-2" width="30" height="30">
+      <p class="mb-0">Hello, {{ user }}!</p>
+    </div>
+  {% else %}
     <p class="text-end m-3">You are not logged in - please <a href="{% url 'account_signup' %}">Register</a> to access the site's full features!</p>
-    {% endif %}
+  {% endif %}
+  
     
   <!-- User Messages -->
 <div class="container">

@@ -9,7 +9,7 @@
           {% for recipe in recipes_pages %}
             <div class="col">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body bg-dark">
                         <h2 class="card-title recipe-title">
                           <a href="{% url 'recipes:recipes_page' recipe.slug %}">
                             <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">

@@ -111,6 +111,10 @@ DATABASES = {
    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
+ACCOUNT_FORMS = {
+    'signup': 'home.forms.CustomSignupForm',
+}
+
 CSRF_TRUSTED_ORIGINS = [
     'https://*.codeinstitute-ide.net',
     "https://*.codeanyapp.com",

@@ -9,7 +9,7 @@
           {% for blog_post in blog_posts %}
             <div class="col">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body bg-dark">
                         <h2 class="card-title blog-article-title">
                             <a href="{% url 'blog_post_detail' blog_post.slug %}" class="post-link">{{blog_post.title}}</a>
                         </h2>
