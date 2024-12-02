@@ -3,7 +3,32 @@
 {% block content %}
 
 <body>
-    <h1 class="recipes-title p-4" style="text-align: center; font-size: 5rem;">All Recipes</h1>
+  <h1 class="recipes-title p-4" style="text-align: center; font-size: 5rem;">All Recipes</h1>
+
+<div class="container mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Sort Recipes</h5>
+                    <div class="d-flex justify-content-center">
+                        <div class="btn-group-vertical d-md-none" role="group" aria-label="Sorting options">
+                            <a href="?sort=alphabetical" class="btn btn-info mb-2 {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
+                            <a href="?sort=oldest" class="btn btn-info mb-2 {% if current_sort == 'oldest' %}active{% endif %}">Oldest First</a>
+                            <a href="?sort=-created_on" class="btn btn-info {% if current_sort == '-created_on' %}active{% endif %}">Newest First</a>
+                        </div>
+                        <div class="btn-group d-none d-md-flex" role="group" aria-label="Sorting options">
+                            <a href="?sort=alphabetical" class="btn btn-info {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
+                            <a href="?sort=oldest" class="btn btn-info {% if current_sort == 'oldest' %}active{% endif %}">Oldest First</a>
+                            <a href="?sort=-created_on" class="btn btn-info {% if current_sort == '-created_on' %}active{% endif %}">Newest First</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {% for recipe in recipes_pages %}
@@ -25,6 +50,37 @@
           {% endfor %}
         </div>
     </div>
+
+ <!-- Pagination -->
+ {% if is_paginated %}
+ <nav aria-label="Page navigation" class="mt-4">
+     <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ current_sort }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo; Previous</span>
+          </a>
+      </li>
+  {% endif %}
+
+         {% for num in page_obj.paginator.page_range %}
+             {% if page_obj.number == num %}
+                 <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                 <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+             {% endif %}
+         {% endfor %}
+
+         {% if page_obj.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ current_sort }}" aria-label="Next">
+            <span aria-hidden="true">Next &raquo;</span>
+        </a>
+    </li>
+{% endif %}
+     </ul>
+ </nav>
+ {% endif %}
 </body>
 
 

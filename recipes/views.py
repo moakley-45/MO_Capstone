@@ -4,7 +4,7 @@ from .models import Recipe, CUISINE_CHOICES
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.db.models import F
 
 class RecipeView(generic.ListView):
     model = Recipe
@@ -13,7 +13,18 @@ class RecipeView(generic.ListView):
     paginate_by = 9 
 
     def get_queryset(self):
-        return Recipe.objects.all().order_by('-created_on')
+        sort_by = self.request.GET.get('sort', '-created_on')
+        if sort_by == 'alphabetical':
+            return Recipe.objects.all().order_by('title')
+        elif sort_by == 'oldest':
+            return Recipe.objects.all().order_by('created_on')
+        else:  # newest first (default)
+            return Recipe.objects.all().order_by('-created_on')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_sort'] = self.request.GET.get('sort', '-created_on')
+        return context
 
 def recipes_page(request, slug):
     queryset = Recipe.objects.filter(status=1)

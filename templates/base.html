@@ -70,7 +70,7 @@
   {% if user.is_authenticated %}
     <div class="text-end m-3 d-flex align-items-center justify-content-end">
       <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="{{ user.username }}" class="rounded-circle me-2" width="30" height="30">
-      <p class="mb-0">Hello, {{ user }}!</p>
+      <p class="mb-0">Hello, <a href="{% url 'profile' %}">{{ user }}</a>!</p>
     </div>
   {% else %}
     <p class="text-end m-3">You are not logged in - please <a href="{% url 'account_signup' %}">Register</a> to access the site's full features!</p>

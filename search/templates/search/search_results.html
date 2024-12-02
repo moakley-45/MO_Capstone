@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 
-
 {% block content %}
     <h1>Search Results for "{{ query }}"</h1>
     {% if results %}
-        {% for result in results %}
-            <div>
-                {% if result|isinstance:"Recipes" %}
-                    <h2>Recipe: {{ result.title }}</h2>
-                    <p>{{ result.ingredients|truncatewords:20 }}</p>
-                {% else %}
-                    <h2>Blog Post: {{ result.title }}</h2>
-                    <p>{{ result.content|truncatewords:20 }}</p>
-                {% endif %}
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for result in results %}
+                    {% if result|is_recipe %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body bg-dark">
+                                    <h2 class="card-title recipe-title">
+                                        <a href="{% url 'recipes:recipes_page' result.slug %}">
+                                            <img class="recipe_image img-fluid" src="{{ result.image.url }}" alt="{{ result.title }}">
+                                        </a>
+                                        <a href="{% url 'recipes:recipes_page' result.slug %}" class="recipe-link">{{result.title}}</a>                        
+                                    </h2>
+                                    <p class="card-text recipe-creator">Author: {{result.creator}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body bg-dark">
+                                    <h2 class="card-title">Blog Post: {{ result.title }}</h2>
+                                    <p class="card-text">{{ result.content|truncatewords:20 }}</p>
+                                    <!-- Add a link to the full blog post if needed -->
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% else %}
         <p>No results found.</p>
     {% endif %}
