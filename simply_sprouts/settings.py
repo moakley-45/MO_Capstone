@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'blog',
     'home',
     'recipes',
+    'search',
 ]
 
 SITE_ID = 1
@@ -89,7 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'home.context_processors.cuisine_choices',
+                'simply_sprouts.context_processors.cuisine_choices',
             ],
         },
     },
