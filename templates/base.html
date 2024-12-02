@@ -34,21 +34,9 @@
                         Recipes by cuisine
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Non-specific</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">British Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Italian Cuisine</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Middle Eastern Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Ethiopian Cuisine</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">American Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Mexican Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Caribbean Cuisine</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Indian Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Thai Cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Japanese Cuisine</a></li>
+                      {% for code, name in CUISINE_CHOICES %}
+                      <li><a class="dropdown-item" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
+                    {% endfor %}
                     </ul>
                 </li>
                 <li class="nav-item">

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ cuisine }} Recipes</h1>
+
+{% for recipe in recipes %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body bg-dark">
+                <h2 class="card-title recipe-title">
+                    <a href="{% url 'recipes:recipes_page' recipe.slug %}">
+                        <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    </a>
+                    <a href="{% url 'recipes:recipes_page' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>                        
+                </h2>
+                <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>No recipes found for {{ cuisine }}.</p>
+{% endfor %}
+{% endblock %}
