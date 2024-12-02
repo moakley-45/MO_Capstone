@@ -21,7 +21,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">  <!-- Added align-items-center -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Simply Sprouts</a>
@@ -36,35 +36,35 @@
                     <ul class="dropdown-menu">
                       {% for code, name in CUISINE_CHOICES %}
                       <li><a class="dropdown-item" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
-                    {% endfor %}
+                      {% endfor %}
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blog_main' %}">Our Blog</a>
                 </li>
                 {% if user.is_authenticated %}
-    <li class="nav-item">
-        <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" aria-current="page" href="{% url 'profile' %}">Edit Profile</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
-    </li>
-{% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page" href="{% url 'account_signup' %}">Register</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" aria-current="page" href="{% url 'profile' %}">Edit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page" href="{% url 'account_signup' %}">Register</a>
+                </li>
                 {% endif %}
             </ul>
+            <form class="d-flex mb-2 mb-lg-0 align-items-center" role="search" action="{% url 'search' %}" method="GET">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
-    <form class="d-flex" role="search" action="{% url 'search' %}" method="GET">
-      <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
-  </nav>
+</nav>
 
   <!-- User confirmation-->
   {% if user.is_authenticated %}
