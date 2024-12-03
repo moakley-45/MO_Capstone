@@ -1,7 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from .models import Recipe
+from .models import Recipe, Review, ReviewComment
 
 class RecipeForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,13 @@ class RecipeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit Recipe'))
+    
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ('title', 'image', 'content', 'rating')
+
+class ReviewCommentForm(forms.ModelForm):
+    class Meta:
+        model = ReviewComment
+        fields = ('body',)
