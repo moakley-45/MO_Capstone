@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import UserProfile
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
+from recipes.models import Recipe 
+
 
 class HomePageView(TemplateView):
     template_name = "home/home.html"
@@ -27,4 +29,3 @@ def profile(request):
     }
     return render(request, template, context)
  
-

@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.db.models import F
 from .forms import RecipeForm
 from django.urls import reverse
-
+from django.views.generic import TemplateView
+import random
 
 class RecipeView(generic.ListView):
     model = Recipe
@@ -78,3 +79,14 @@ def submit_recipe(request):
     else:
         form = RecipeForm()
     return render(request, 'recipes/submit_recipe.html', {'form': form})
+
+
+class HomePageView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_recipes = list(Recipe.objects.all())
+        random_recipes = random.sample(all_recipes, min(2, len(all_recipes)))
+        context['random_recipes'] = random_recipes
+        return context
