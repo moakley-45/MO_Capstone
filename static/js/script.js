@@ -45,3 +45,27 @@ for (let button of editButtons) {
         deleteModal.show();
     });
 }
+
+/*
+* Adds a dynamic update for the Recipe Submission form, on smaller screen sizes.
+* The form should trigger at screens above 450px in width, and be otherwise
+* hidden on smaller screens, to ensure users do not struggle to use 
+* Summernote content editors, which are not suitable for Mobile screensize.  
+*/
+function checkScreenSize() {
+    var warning = document.querySelector('.mobile-warning');
+    var form = document.querySelector('.form-container');
+    if (window.innerWidth <= 450) {
+        warning.style.display = 'block';
+        form.style.display = 'none';
+    } else {
+        warning.style.display = 'none';
+        form.style.display = 'block';
+    }
+}
+
+// Run on page load
+checkScreenSize();
+
+// Run on window resize
+window.addEventListener('resize', checkScreenSize);
