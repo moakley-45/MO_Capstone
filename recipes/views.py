@@ -40,16 +40,19 @@ class RecipeView(generic.ListView):
         return context
 
 def recipes_page(request, slug):
-    queryset = Recipe.objects.filter(status=1)
-    recipe = get_object_or_404(queryset, slug=slug)
-
-    return render(
-        request,
-        "recipes/recipes_page.html",
-        {
+    recipe = get_object_or_404(Recipe, slug=slug, status=1)
+    reviews = recipe.reviews.all()
+    review_form = ReviewForm()
+    comment_form = ReviewCommentForm()
+    
+    context = {
         "recipe": recipe,
-        },
-    )
+        "reviews": reviews,
+        "review_form": review_form,
+        "comment_form": comment_form,
+    }
+    return render(request, "recipes/recipes_page.html", context)
+
 
 def cuisine_specific_recipes(request, cuisine):
     recipes = Recipe.objects.filter(cuisine=cuisine, status=1) 
