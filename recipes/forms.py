@@ -1,6 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Field, HTML
 from .models import Recipe, Review, ReviewComment
 from django_summernote.widgets import SummernoteWidget
 
@@ -27,12 +27,41 @@ class RecipeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit Recipe'))
+        self.helper.layout = Layout(
+            *[Field(field, template='recipes/custom_field.html') for field in self.fields]
+        )
+        self.helper.add_input(Submit('submit', 'Submit Review'))
  
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('title', 'image', 'content', 'rating')
+        widgets = {
+            'content': SummernoteWidget(),
+        }
+        help_texts = {
+            'title': 'Enter a descriptive title for your review - sum up your thoughts with a snappy line!',
+            'image': "Upload a clear image of your finished dish, if you'd like to - we'd recommend a 1600 x 900px jpg, to ensure a good aspect ratio.",
+            'content': "Share your honest feelings about the recipe; how it tasted and what changes you'd recommend - please be constructive with your feedback though! Overly-personal attacks and insults will result in your Review not passing moderation. ",
+            'rating': "Select your final rating for the recipe from 0 stars to 5 stars - if it was an awful meal, give it zero! If you can't wait to make it again, give it five!",
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Field('title', wrapper_class='mb-2'),
+            HTML('<div class="help-text mb-2">{{ form.title.help_text }}</div>'),
+            Field('image', wrapper_class='mb-2'),
+            HTML('<div class="help-text mb-2">{{ form.image.help_text }}</div>'),
+            Field('content', wrapper_class='mb-2'),
+            HTML('<div class="help-text mb-2">{{ form.content.help_text }}</div>'),
+            Field('rating', wrapper_class='mb-2'),
+            HTML('<div class="help-text mb-2">{{ form.rating.help_text }}</div>'),
+        )
+        self.helper.add_input(Submit('submit', 'Submit Review'))
+
 
 class ReviewCommentForm(forms.ModelForm):
     class Meta:

@@ -80,11 +80,19 @@
     {% endfor %}
 
     <h4>Add a Review</h4>
+    {% if user.is_authenticated %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ review_form|crispy }}
-        <button class="btn btn-info" type="submit" name="review_submit">Submit Review</button>
+        {% crispy review_form %}
     </form>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <p class="text-start m-3">You are not currently logged in - please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a> to
+            access
+            the site's full features!</p>
+    </div>
+    {% endif %}
+
 
     <!-- Delete confirmation modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
