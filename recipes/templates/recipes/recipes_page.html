@@ -2,6 +2,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block title %}
+{{recipe.title}}
+{% endblock %}
+
+
 <body>
     {% block content %}
     <!-- Main Blog Page content-->

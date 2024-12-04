@@ -4,10 +4,7 @@ from .models import UserProfile
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from recipes.models import Recipe 
-
-
-class HomePageView(TemplateView):
-    template_name = "home/home.html"
+import random
 
 @login_required
 def profile(request):
@@ -29,3 +26,13 @@ def profile(request):
     }
     return render(request, template, context)
  
+
+class HomePageView(TemplateView):
+    template_name = "home/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_recipes = list(Recipe.objects.all())
+        random_recipes = random.sample(all_recipes, min(2, len(all_recipes)))
+        context['random_recipes'] = random_recipes
+        return context
