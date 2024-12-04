@@ -1,94 +1,112 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
 <body>
-{% block content %}
+    {% block content %}
     <!-- Main Blog Page content-->
     <h1>{{recipe.title}}</h1>
     <p class="blog_post-details">Written by: <u>{{recipe.creator}}</u> | {{recipe.created_on}} </p>
     <span class="'recipe_serves"><i class="fa-solid fa-user-group"></i> Serves: {{ recipe.serves }}</span>
     <hr>
-    <img class="recipe_image img-fluid mx-auto" src=" {{ recipe.image.url }}"
-                                  alt="{{ post.title }}">
+    <img class="recipe_image img-fluid mx-auto" src=" {{ recipe.image.url }}" alt="{{ post.title }}">
     <hr>
     <article class="recipe_notes">
-      <h3>Notes:</h3>  
-    {{recipe.notes | safe }}
+        <h3>Notes:</h3>
+        {{recipe.notes | safe }}
     </article>
     <hr>
 
     <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-6 mb-3">
-            <div class="p-3 border bg-dark">
-              <article class="recipe_ingredients">
-        <h3>Ingredients:</h3>  
-        {{recipe.ingredients | safe }}
-    </article>
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="p-3 border bg-dark">
+                    <article class="recipe_ingredients">
+                        <h3>Ingredients:</h3>
+                        {{recipe.ingredients | safe }}
+                    </article>
+                </div>
             </div>
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <div class="p-3 border bg-dark">
-                  <article class="recipe_method">
-        <h3>Method:</h3>  
-        {{recipe.method | safe }}
-    </article>
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="p-3 border bg-dark">
+                    <article class="recipe_method">
+                        <h3>Method:</h3>
+                        {{recipe.method | safe }}
+                    </article>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
- 
-      <h2>Reviews</h2>
-      <hr>
-      {% for review in reviews %}
-          <div class="review">
-              <h3>{{ review.title }} - {{ review.rating }}/5</h3>
-              <p>By {{ review.author }} on {{ review.created_on }}</p>
-              {% if review.image %}
-                  <img src="{{ review.image.url }}" alt="{{ review.title }}">
-              {% endif %}
-              <p>{{ review.content }}</p>
-              
-              {% if user == review.author %}
-                  <a href="{% url 'edit_review' recipe.slug review.id %}">Edit</a>
-                  <a href="{% url 'delete_review' recipe.slug review.id %}">Delete</a>
-              {% endif %}
-              
-              <h4>Comments</h4>
-              {% for comment in review.comments.all %}
-                  {% if comment.approved %}
-                      <div class="comment">
-                          <p>{{ comment.body }}</p>
-                          <p>By {{ comment.author }} on {{ comment.created_on }}</p>
-                      </div>
-                  {% endif %}
-              {% endfor %}
-              
-              <h5>Add a comment</h5>
-              <form method="post">
-                  {% csrf_token %}
-                  {{ comment_form|crispy }}
-                  <input type="hidden" name="review_id" value="{{ review.id }}">
-                  <button type="submit" name="comment_submit">Submit Comment</button>
-              </form>
-          </div>
-      {% endfor %}
+    </div>
 
-      <h4>Add a Review</h4>
-      <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ review_form|crispy }}
-          <button class="btn btn-info" type="submit" name="review_submit">Submit Review</button>
-      </form>
+    <h2>Reviews</h2>
+    <hr>
+    {% for review in reviews %}
+    <div class="review">
+        <h3>{{ review.title }} - {{ review.rating }}/5</h3>
+        <p>By {{ review.author }} on {{ review.created_on }}</p>
+        {% if review.image %}
+        <img src="{{ review.image.url }}" alt="{{ review.title }}">
+        {% endif %}
+        <p>{{ review.content }}</p>
 
-{% endblock %}
+        {% if user == review.author %}
+        <a href="{% url 'edit_review' recipe.slug review.id %}">Edit</a>
+        <a href="{% url 'delete_review' recipe.slug review.id %}">Delete</a>
+        {% endif %}
+
+        <h4>Comments</h4>
+        {% for comment in review.comments.all %}
+        {% if comment.approved %}
+        <div class="comment">
+            <p>{{ comment.body }}</p>
+            <p>By {{ comment.author }} on {{ comment.created_on }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <h5>Add a comment</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <input type="hidden" name="review_id" value="{{ review.id }}">
+            <button type="submit" name="comment_submit">Submit Comment</button>
+        </form>
+    </div>
+    {% endfor %}
+
+    <h4>Add a Review</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ review_form|crispy }}
+        <button class="btn btn-info" type="submit" name="review_submit">Submit Review</button>
+    </form>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Please confirm you truly wish to delete your comment, as this action cannot be undone.
+                    Proceed?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="deleteConfirm" href="#" class="btn
+          btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
 </body>
 
 {% block extras %}
-<!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <!-- native JavaScript -->
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

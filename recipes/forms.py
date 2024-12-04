@@ -2,14 +2,25 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from .models import Recipe, Review, ReviewComment
+from django_summernote.widgets import SummernoteWidget
 
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ['title', 'image', 'notes', 'ingredients', 'method', 'serves', 'cuisine']
         widgets = {
-            'ingredients': forms.Textarea(attrs={'rows': 5}),
-            'method': forms.Textarea(attrs={'rows': 5}),
+            'notes': SummernoteWidget(),
+            'ingredients': SummernoteWidget(),
+            'method': SummernoteWidget(),
+        }
+        help_texts = {
+            'title': 'Enter a descriptive title for your recipe!',
+            'image': "Upload a clear image of your finished dish - we'd recommend a 1600 x 900px jpg, to ensure a good aspect ratio.",
+            'notes': "Add any additional notes or tips about the recipe, or any interesting context about the recipe's creation!",
+            'ingredients': "List all ingredients with their quantities - we'd recommend using the Unordered List option to better format this .",
+            'method': "Provide step-by-step instructions for preparing the dish - we'd recommend using the Ordered List optoon to better format this.",
+            'serves': 'Indicate how many people this recipe serves - please note, this field will only accept numbers.',
+            'cuisine': "Select the type of cuisine this recipe belongs to - if you are unsure, leave this as 'Non-specific', as per the default.",
         }
 
     def __init__(self, *args, **kwargs):
@@ -17,7 +28,7 @@ class RecipeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit Recipe'))
-    
+ 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

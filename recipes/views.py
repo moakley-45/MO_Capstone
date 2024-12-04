@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import F
-from .forms import RecipeForm, ReviewCommentForm
+from .forms import RecipeForm, ReviewForm, ReviewCommentForm
 from django.urls import reverse
 from django.views.generic import TemplateView
 import random
+
 
 class RecipeView(generic.ListView):
     model = Recipe
@@ -91,7 +92,7 @@ def recipe_detail(request, slug):
         'review_form': review_form,
         'comment_form': comment_form,
     }
-    return render(request, 'recipes/recipe_detail.html', context)
+    return render(request, 'recipes/recipes_page.html', context)
 
 @login_required
 def edit_review(request, slug, review_id):

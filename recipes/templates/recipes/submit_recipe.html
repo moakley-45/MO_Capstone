@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 <h1 class="recipe-submit_title">Submit a New Recipe</h1>
 <hr>
-{% crispy form %}
-{% endblock %}
 
-{% block extras %}
-<!-- native JavaScript -->
+<div class="form-container">
+    {{ form.media }}
+    {% crispy form %}
+</div>
+
+<div class="mobile-warning" style="display: none;">
+    <p>Please swap to a device with a larger screen, if you would like to submit a recipe. Our Recipe Submission form is
+        not currently optimized for small screens, but our team is working to implement this as soon as possible!</p>
+</div>
+
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

@@ -13,6 +13,10 @@ h1 {
     color: red;
 }
 
+span.asteriskField {
+    display: none;
+}
+
 /* Modal Styles */
 
 .modal-content {
@@ -71,6 +75,24 @@ p.approval {
 
 
 /* Media Queries */
+
+/* Adjust SummerNote content fields for Mobile screens */
+
+@media screen and (max-width: 450px) {
+    .form-container {
+        display: none;
+    }
+    .mobile-warning {
+        display: block !important;
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+
 
 /* Adjust column widths */
   @media (min-width: 992px) {
