@@ -14,8 +14,11 @@
     <p class="blog_post-details">Written by: <u>{{recipe.creator}}</u> | {{recipe.created_on}} </p>
     <span class="'recipe_serves"><i class="fa-solid fa-user-group"></i> Serves: {{ recipe.serves }}</span>
     <hr>
-    <img class="recipe_image img-fluid mx-auto" src=" {{ recipe.image.url }}" alt="{{ post.title }}">
+    <div class="text-center">
+        <img class="recipe_image-jumbo img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+    </div>
     <hr>
+
     <article class="recipe_notes">
         <h3>Notes:</h3>
         {{recipe.notes | safe }}
@@ -87,7 +90,8 @@
     </form>
     {% else %}
     <div class="alert alert-info" role="alert">
-        <p class="text-start m-3">You are not currently logged in - please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a> to
+        <p class="text-start m-3">You are not currently logged in - please <a
+                href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a> to
             access
             the site's full features!</p>
     </div>

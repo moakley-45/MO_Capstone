@@ -20,7 +20,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
         <!-- Added align-items-center -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Simply Sprouts</a>
+            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Simply Sprouts</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'recipes:recipes_main' %}">All Recipes</a>
@@ -39,9 +39,9 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Recipes by cuisine
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu bg-dark">
               {% for code, name in CUISINE_CHOICES %}
-              <li><a class="dropdown-item" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
+              <li><a class="dropdown-item bg-dark" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
               {% endfor %}
             </ul>
           </li>
@@ -75,7 +75,10 @@
         </ul>
         <form class="d-flex mb-2 mb-lg-0 align-items-center" role="search" action="{% url 'search' %}" method="GET">
           <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-success search-button" type="submit">
+            <span class="icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span class="label">Search</span>
+        </button>
         </form>
       </div>
     </div>
@@ -90,8 +93,9 @@
     <p class="mb-0">Hello, <a href="{% url 'profile' %}">{{ user }}</a>!</p>
   </div>
   {% else %}
-  <p class="text-end m-3">You are not logged in - please <a href="{% url 'account_signup' %}">Register</a> to access the
-    site's full features!</p>
+  <p class="text-end m-3">You are not currently logged in - please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a> to
+    access
+    the site's full features!</p>
   {% endif %}
 
 
