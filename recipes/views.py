@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Recipe, CUISINE_CHOICES, Review, ReviewComment
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import F
 from .forms import RecipeForm, ReviewForm, ReviewCommentForm
 from django.urls import reverse
 from django.views.generic import TemplateView
+from django.utils.text import slugify
 import random
 
 
@@ -76,7 +77,7 @@ def recipe_detail(request, slug):
                 review.recipe = recipe
                 review.save()
                 messages.success(request, 'Your review has been successfully submitted!')
-                return redirect('recipe_detail', slug=slug)
+                return redirect('recipes:recipe_detail', slug=slug)
         elif 'comment_submit' in request.POST:
             comment_form = ReviewCommentForm(request.POST)
             if comment_form.is_valid():
@@ -87,7 +88,7 @@ def recipe_detail(request, slug):
                 comment.review = review
                 comment.save()
                 messages.success(request, 'Your comment has been successfully submitted and is awaiting approval.')
-                return redirect('recipe_detail', slug=slug)
+                return redirect('recipes:recipe_detail', slug=slug)
 
     context = {
         'recipe': recipe,
@@ -96,42 +97,39 @@ def recipe_detail(request, slug):
         'comment_form': comment_form,
     }
     return render(request, 'recipes/recipes_page.html', context)
-
 @login_required
 def edit_review(request, slug, review_id):
     recipe = get_object_or_404(Recipe, slug=slug)
     review = get_object_or_404(Review, id=review_id)
+
+    # Check if the user is the author of the review
     if request.user != review.author:
         messages.error(request, "You can only edit your own reviews.")
-        return redirect('recipe_detail', slug=slug)
-    
+        return redirect('recipes:recipe_detail', slug=slug)
+
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES, instance=review)
+        
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your review has been updated!')
-            return redirect('recipe_detail', slug=slug)
+            messages.success(request, 'Your review has been updated successfully!')
+            return redirect('recipes:recipe_detail', slug=slug)
+        else:
+            messages.error(request, 'Error updating review! Please correct the errors below.')
+
     else:
         form = ReviewForm(instance=review)
-    
+
     return render(request, 'recipes/edit_review.html', {'form': form, 'recipe': recipe})
 
 @login_required
 def delete_review(request, slug, review_id):
     review = get_object_or_404(Review, id=review_id)
     if request.user != review.author:
-        messages.error(request, "You can only delete your own reviews.")
-    else:
-        review.delete()
-        messages.success(request, "Your review has been deleted.")
-    return redirect('recipe_detail', slug=slug)  
-
-def your_view(request):
-    context = {
-        'CUISINE_CHOICES': CUISINE_CHOICES,
-        # ... other context variables ...
-    }
-    return render(request, 'cuisine_specific.html', context)
+        return JsonResponse({"error": "You can only delete your own reviews."}, status=403)
+    
+    review.delete()
+    return JsonResponse({"message": "Review deleted successfully."})
 
 
 @login_required
@@ -141,9 +139,41 @@ def submit_recipe(request):
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.creator = request.user
+            
+            recipe.slug = slugify(recipe.title)  
+            
             recipe.save()
-            return redirect(reverse('recipes:recipe_detail', kwargs={'slug': recipe.slug}))
+            print(f"Recipe slug: {recipe.slug}") 
+            
+            messages.success(request, 'Your recipe has been submitted successfully! Our Admin Team will quickly review it and make it Live as soon as possible - please check back soon!')
+
+            return redirect('home') 
     else:
         form = RecipeForm()
     return render(request, 'recipes/submit_recipe.html', {'form': form})
 
+@login_required
+def submit_review(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST, request.FILES)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.author = request.user
+            review.recipe = recipe
+            review.approved = False
+            review.save()
+            messages.success(request, 'Your review has been successfully submitted! It will be moderated by our Admin Team and made live ASAP - please check back soon!')
+            return redirect('recipes:recipe_detail', slug=slug)
+        else:
+            messages.error(request, 'There was an error submitting your review. Please re-check your input details!')
+    else:
+        review_form = ReviewForm()
+
+    reviews = recipe.reviews.filter(approved=True)
+    context = {
+        'recipe': recipe,
+        'review_form': review_form,
+        'reviews': reviews,
+    }
+    return render(request, 'recipes/recipes_page.html', context)

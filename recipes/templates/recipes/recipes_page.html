@@ -15,7 +15,9 @@
     <span class="'recipe_serves"><i class="fa-solid fa-user-group"></i> Serves: {{ recipe.serves }}</span>
     <hr>
     <div class="text-center">
-        <img class="recipe_image-jumbo img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        <div class="recipe_image-container">
+            <img class="recipe_image-jumbo img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        </div>
     </div>
     <hr>
 
@@ -48,55 +50,127 @@
 
     <h2>Reviews</h2>
     <hr>
-    {% for review in reviews %}
-    <div class="review">
-        <h3>{{ review.title }} - {{ review.rating }}/5</h3>
-        <p>By {{ review.author }} on {{ review.created_on }}</p>
-        {% if review.image %}
-        <img src="{{ review.image.url }}" alt="{{ review.title }}">
-        {% endif %}
-        <p>{{ review.content }}</p>
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-3">
+            <div class="p-3 border bg-dark">
+                <div class="current-reviews-column">
+                    <h2 class="mb-4">Current Reviews</h2>
+                    {% for review in reviews %}
+                    {% if review.approved %}
+                    <div class="review mb-4">
+                        <div class="review_body" id="review{{ review.id }}">
+                            <h3>{{ review.title }} -
+                                {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                <i class="fas fa-star"></i>
+                                {% else %}
+                                <i class="far fa-star"></i>
+                                {% endif %}
+                                {% endfor %}
+                            </h3>
+                            <p>By <em><u>{{ review.author }}</u></em> on <em>{{ review.created_on }}</em></p>
+                            {% if review.image %}
+                            <img src="{{ review.image.url }}" alt="{{ review.title }}" class="img-fluid mb-3">
+                            {% endif %}
+                            <p>{{ review.content | safe }}</p>
 
-        {% if user == review.author %}
-        <a href="{% url 'edit_review' recipe.slug review.id %}">Edit</a>
-        <a href="{% url 'delete_review' recipe.slug review.id %}">Delete</a>
-        {% endif %}
+                            <!-- {% if user == review.author %}
+                            <div class="review_edit_buttons mb-3">
+                                <button class="btn btn-info btn-edit-review"
+                                    data-review-id="{{ review.id }}">Edit</button>
+                                <button class="btn btn-danger btn-delete-review"
+                                    data-review-id="{{ review.id }}">Delete</button>
+                            </div>
+                            {% endif %} -->
+                        </div>
+                        <h4><span>Comments: <i class="far fa-comments"></i> {{ review.comment_count }}</span></h4>
+                        {% for comment in review.comments.all %}
+                        {% if comment.approved %}
+                        <div class="comment mb-2">
+                            <p>{{ comment.body }}</p>
+                            <p>By {{ comment.author }} on {{ comment.created_on }}</p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
 
-        <h4>Comments</h4>
-        {% for comment in review.comments.all %}
-        {% if comment.approved %}
-        <div class="comment">
-            <p>{{ comment.body }}</p>
-            <p>By {{ comment.author }} on {{ comment.created_on }}</p>
+                        <h5>Add a comment</h5>
+                        <form method="post" class="mb-4">
+                            {% csrf_token %}
+                            {{ comment_form|crispy }}
+                            <input type="hidden" name="review_id" value="{{ review.id }}">
+                            <button type="submit" name="comment_submit" class="btn btn-primary">Submit Comment</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    {% empty %}
+                    <p>No reviews currently available for this recipe.</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        {% endif %}
-        {% endfor %}
 
-        <h5>Add a comment</h5>
-        <form method="post">
-            {% csrf_token %}
-            {{ comment_form|crispy }}
-            <input type="hidden" name="review_id" value="{{ review.id }}">
-            <button type="submit" name="comment_submit">Submit Comment</button>
-        </form>
+        <div class="col-12 col-lg-6 mb-3">
+            <div class="p-3 border bg-dark">
+                <div class="new-review-column">
+                    <h2 class="mb-4">Leave a Review</h2>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'recipes:submit_review' recipe.slug %}"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% crispy review_form %}
+                    </form>
+                    {% else %}
+                    <div class="alert alert-info" role="alert">
+                        <p class="text-start m-3">You are not currently logged in - please
+                            <a href="{% url 'account_signup' %}">Register</a> or
+                            <a href="{% url 'account_login' %}">Login</a> to access the site's full features!
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
 
-    <h4>Add a Review</h4>
-    {% if user.is_authenticated %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% crispy review_form %}
-    </form>
-    {% else %}
-    <div class="alert alert-info" role="alert">
-        <p class="text-start m-3">You are not currently logged in - please <a
-                href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a> to
-            access
-            the site's full features!</p>
+   <!-- Edit Review Modal  -->
+<div class="modal fade" id="editReviewModal" tabindex="-1" aria-labelledby="editReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editReviewModalLabel">Edit Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editReviewForm" method="post">
+                    {% csrf_token %}
+                    {{ review_form|crispy }}
+                    <input type="hidden" name="review_id" id="review_id">
+                    <button type="submit" class="btn btn-primary">Update Review</button>
+                </form>
+            </div>
+        </div>
     </div>
-    {% endif %}
+</div>
 
+    <!-- Delete Review Modal --> 
+    <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteReviewModalLabel">Delete Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this review?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="deleteReviewConfirm" href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Delete confirmation modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -117,8 +191,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> 
 
     {% endblock %}
 </body>
