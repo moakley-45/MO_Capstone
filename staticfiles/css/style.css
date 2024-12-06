@@ -13,6 +13,10 @@ main {
     padding: 0 20px !important;
 }
 
+.text-secondary {
+  color: #BABFC4 !important;
+}
+
 h1 {
     color: #F0FFFF;
 }
