@@ -28,8 +28,7 @@
                             <div class="card h-100">
                                 <div class="card-body bg-dark">
                                     <h2 class="card-title">Blog Post: {{ result.title }}</h2>
-                                    <p class="card-text">{{ result.content|truncatewords:20 }}</p>
-                                    <!-- Add a link to the full blog post if needed -->
+                                    <p class="card-text">{{ result.content|truncatewords_html:20|safe }}</p>
                                 </div>
                             </div>
                         </div>
