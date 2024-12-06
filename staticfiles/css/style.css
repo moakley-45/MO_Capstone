@@ -2,7 +2,7 @@
 
 body {
     background-color: #123524;
-    color: #ffffff;
+    color: #f0ffff;
 }
 
 main {
@@ -10,7 +10,86 @@ main {
 }
 
 h1 {
-    color: red;
+    color: #F0FFFF;
+}
+
+span.asteriskField {
+    display: none;
+}
+
+/* Navigation Styling */
+
+.navbar-toggler {
+    line-height: 1;
+    color: #F0FFFF;
+    background-color: transparent;
+    border: var(--bs-border-width) solid #F0FFFF;
+  }
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.nav-link {
+    color: #F0FFFF;
+  }
+
+.navbar.navbar-expand-lg.bg-dark {
+    border-bottom: #F0FFFF 1px solid;
+}
+
+.dropdown-menu.bg-dark.show {
+    border-top: none !important;
+    border: 1px solid #F0FFFF;
+    border-radius: 0px 0px 8px 8px !important;
+  }
+
+.dropdown-item:hover {
+    color: #ffffff;
+    font-weight: 700;
+    transition: all, 0.5s;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+    font-weight: 700;
+    transition: all, 0.5s;
+}
+.search-button {
+    display: flex; 
+    align-items: center; 
+}
+
+.icon {
+    margin-right: 5px; 
+}
+
+.dropdown-item {
+    color: #F0FFFF;
+  }
+
+/* Footer Styles */
+
+.row.justify-content-center {
+  margin-bottom: 15px;
+}
+
+.footer-bar.bg-dark.text-white.text-center.text-lg-start {
+  margin-top: 15px;
+}
+
+/* Modal Styles */
+
+.modal-content {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Message Styles */
+
+div#msg {
+    background: #17a2b8 !important;
+    border: 1px solid #ffffff;
 }
 
 /* Blog Styles */
@@ -26,3 +105,189 @@ p.blog_post-details {
     font-weight: 900;
     font-size: 0.75rem;
 }
+
+/* Recipes Styles */
+
+/* Recipe Sort styling */
+
+.btn.sort-button.btn-info {
+    color: #f0ffff;
+  }
+
+.btn.sort-button.btn-info.active {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+/* Recipe cards styling */
+
+.card-body.bg-dark {
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.recipe-link {
+    color: #F0FFFF;
+    text-decoration: initial;
+  }
+
+.image-container {
+    position: relative; 
+    width: 100%; 
+    padding-top: 56.25%; 
+    overflow: hidden; 
+}
+
+.recipe_image {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 100%; 
+    height: auto; 
+    transform: translate(-50%, -50%); 
+    object-fit: cover; 
+}
+
+.card-text.recipe-creator {
+    color: #ffffff;
+  }
+
+
+/* Recipe Pages - Recipe Images styling */
+
+.text-center {
+    text-align: center;
+}
+
+.recipe_image-container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.recipe_image-jumbo {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Recipe Pages - Recipe Review styling */
+.review.bg-dark {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #f0ffff;
+}
+
+.col-12.col-md-8.reviews-column {
+    border-radius: 8px;
+    border: 1px solid #f0ffff;
+    padding: 8px 16px;
+  }
+
+  .review_body {
+    background: #606060;
+    border-radius: 8px;
+    padding: 5px 8px 5px 8px;
+    margin-bottom: 40px;
+  }
+ 
+  .review_edit_buttons.mb-3 {
+    text-align: center;
+    margin-bottom: 0 5px;
+  }
+
+
+.modal {
+    --bs-modal-width: 60vw;
+}
+
+.modal-dialog {
+  --bs-modal-width: 85%;
+}
+
+/* Blog Comment Styles */
+
+.sticky-column {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px; 
+    width: 85%; 
+    margin-left: auto; 
+  }
+  
+.container {
+    max-width: 100%;
+}
+
+.p-2.comments {
+    background: grey;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+p.approval {
+    background: yellow;
+    border-radius: 8px;
+    border: grey 1px solid;
+    padding: 0 8px;
+    font-weight: 700;
+}
+
+/* Form Styling */
+
+label {
+    color: #F0FFFF !important;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.form-text {
+    color: #f0ffff;
+    font-style: italic;
+}
+
+.help-text {
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.form-group.bg-dark {
+    margin-bottom: 1rem;
+    padding: 0.8rem 0.8rem;
+    border-radius: 8px;
+  }
+
+/* Media Queries */
+
+/* Adjust SummerNote content fields for Mobile screens */
+
+@media screen and (max-width: 450px) {
+    .form-container {
+        display: none;
+    }
+    .mobile-warning {
+        display: block !important;
+        color: #f0ffff;
+        background-color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+
+
+/* Adjust column widths */
+  @media (min-width: 992px) {
+.dropdown-menu.bg-dark.show {
+        border-top: none !important;
+        border: 1px solid #F0FFFF;
+        border-radius: 0px 0px 8px 8px !important;
+        text-align: center;
+        left: -10%;
+}
+    .col-lg-8 {
+      width: 60%;
+    }
+    .col-lg-4 {
+      width: 40%;
+    }
+  }
