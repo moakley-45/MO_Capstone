@@ -9,11 +9,48 @@ Home
 
 <body>
     <h1>Welcome to <em>Simply Sprouts!</em></h1>
-    <p>This is your home page.</p>
-    <p>This page is in the Home app.</p>
+
+    <div class="container welcome-message">
+        <div class="row">
+            <p>
+                Welcome to <strong><em>Simply Sprouts</em></strong>, your ultimate destination for all things vegetarian
+                and vegan!
+            </p>
+            <br>
+            <img src="{% static 'images/alyson-mcphee-yWG-ndhxvqY-unsplash.jpg' %}"
+                alt="Photo by Alyson McPhee on Unsplash" title="Photo by Alyson McPhee on Unsplash">
+            <br>
+            <p>Here, we celebrate the vibrant world of plant-based cooking by hosting a diverse collection of delicious
+                recipes
+                that cater to every palate. Whether you're a seasoned vegetarian, a curious omnivore, or just starting
+                your journey towards a more plant-based lifestyle, our website serves as a community hub where you can
+                find inspiration, share ideas, and connect with like-minded individuals.</p>
+            <br>
+            <img src="{% static 'images/jason-briscoe-KTrov7eujms-unsplash.jpg' %}"
+                alt="Photo by Jason Briscoe on Unsplash" title="Photo by Jason Briscoe on Unsplash">
+            <br>
+            <p>
+                At <strong><em>Simply Sprouts</em></strong>, we believe that cooking and eating should be enjoyable
+                experiences filled with creativity and flavor. Join us as we
+                explore the benefits of a vegetarian lifestyle, discover new culinary techniques, and foster a
+                supportive environment for everyone passionate about healthy, sustainable living!
+            </p>
+            <br>
+            <img src="{% static 'images/eugen-kucheruk-TvcjBk5y0wU-unsplash.jpg' %}"
+                alt="Photo by Eugen Kucheruk on Unsplash" title="Photo by Eugen Kucheruk on Unsplash">
+            <br>
+        </div>
+    </div>
+
+    <hr>
 
     <div class="container mt-4">
         <h2 class="text-center mb-4">Featured Recipes</h2>
+        <div class="container recipe-randomiser-message text-center">
+            <p>
+                Please see today's featured recipes below!
+            </p>
+        </div>
         <div class="row">
             {% for recipe in random_recipes %}
             <div class="col-md-6 mb-4">
