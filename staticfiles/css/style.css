@@ -272,6 +272,9 @@ label {
         padding: 15px;
         margin-top: 20px;
     }
+    .summernote-container {
+      width: 100%;
+    }
 }
 
 
