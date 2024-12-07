@@ -253,6 +253,11 @@ p.blog_post-details {
     margin-bottom: 0 5px;
   }
 
+  .review.mb-4 textarea {
+    width: 100%;
+    margin: auto;
+  }
+
   #id_title {
     filter: invert(1);
     color: #0f0000;

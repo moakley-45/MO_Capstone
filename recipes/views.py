@@ -86,6 +86,7 @@ def recipe_detail(request, slug):
                 comment = comment_form.save(commit=False)
                 comment.author = request.user
                 comment.review = review
+                comment.approved = False
                 comment.save()
                 messages.success(request, 'Your comment has been successfully submitted and is awaiting approval.')
                 return redirect('recipes:recipe_detail', slug=slug)
@@ -180,3 +181,52 @@ def submit_review(request, slug):
         'reviews': reviews,
     }
     return render(request, 'recipes/recipes_page.html', context)
+
+@login_required
+def add_review_comment(request, slug, review_id):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    review = get_object_or_404(Review, id=review_id)
+    if request.method == 'POST':
+        body = request.POST.get('body')
+        if body:
+            ReviewComment.objects.create(
+                review=review,
+                author=request.user,
+                body=body,
+                approved=False
+            )
+    return redirect('recipes:recipe_detail', slug=slug)
+
+@login_required
+def review_comment_edit(request, slug, review_id, comment_id):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    review = get_object_or_404(Review, id=review_id)
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+
+    if request.method == "POST":
+        comment_form = ReviewCommentForm(data=request.POST, instance=comment)
+
+        if comment_form.is_valid() and comment.author == request.user:
+            comment = comment_form.save(commit=False)
+            comment.review = review
+            comment.approved = False
+            comment.save()
+            messages.success(request, 'Comment Updated!')
+        else:
+            messages.error(request, 'Error updating comment!')
+
+    return redirect('recipes:recipe_detail', slug=slug)
+
+@login_required
+def review_comment_delete(request, slug, review_id, comment_id):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    review = get_object_or_404(Review, id=review_id)
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+
+    if comment.author == request.user:
+        comment.delete()
+        messages.success(request, 'Comment deleted!')
+    else:
+        messages.error(request, 'You can only delete your own comments!')
+
+    return redirect('recipes:recipe_detail', slug=slug)

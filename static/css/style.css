@@ -253,6 +253,16 @@ p.blog_post-details {
     margin-bottom: 0 5px;
   }
 
+  .review.mb-4 textarea {
+    width: 100%;
+    margin: auto;
+  }
+
+  .comment-buttons {
+    text-align: center;
+    margin-top: 10px;
+  }
+
   #id_title {
     filter: invert(1);
     color: #0f0000;
@@ -280,14 +290,6 @@ p.blog_post-details {
     color: #0f0000;
     background-color: #ffffff;
   }
-
-.modal {
-    --bs-modal-width: 60vw;
-}
-
-.modal-dialog {
-  --bs-modal-width: 85%;
-}
 
 /* Blog Comment Styles */
 

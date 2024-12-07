@@ -17,7 +17,7 @@ class RecipeForm(forms.ModelForm):
             'title': 'Enter a descriptive title for your recipe!',
             'image': "Upload a clear image of your finished dish - we'd recommend a 1600 x 900px jpg, to ensure a good aspect ratio.",
             'notes': "Add any additional notes or tips about the recipe, or any interesting context about the recipe's creation!",
-            'ingredients': "List all ingredients with their quantities - we'd recommend using the Unordered List option to better format this .",
+            'ingredients': "List all ingredients with their quantities - we'd recommend using the Unordered List option to better format this.",
             'method': "Provide step-by-step instructions for preparing the dish - we'd recommend using the Ordered List optoon to better format this.",
             'serves': 'Indicate how many people this recipe serves - please note, this field will only accept numbers.',
             'cuisine': "Select the type of cuisine this recipe belongs to - if you are unsure, leave this as 'Non-specific', as per the default.",
@@ -64,6 +64,8 @@ class ReviewForm(forms.ModelForm):
 
 
 class ReviewCommentForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Add your comment here...'}), label='')
+
     class Meta:
         model = ReviewComment
         fields = ('body',)

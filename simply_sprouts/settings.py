@@ -176,3 +176,7 @@ SUMMERNOTE_CONFIG = {
         ),
     },
 }
+
+CLOUDINARY_URL_OPTIONS = {
+    'secure': True
+}

@@ -62,13 +62,13 @@ class Review(models.Model):
 
 class ReviewComment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="review_comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
-    approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ['created_on']
 
     def __str__(self):
-        return f"Comment by {self.author} on {self.review.title}"
+        return f"Comment by {self.author} on {self.review}"
