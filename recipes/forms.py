@@ -9,9 +9,9 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = ['title', 'image', 'notes', 'ingredients', 'method', 'serves', 'cuisine']
         widgets = {
-            'notes': SummernoteWidget(),
-            'ingredients': SummernoteWidget(),
-            'method': SummernoteWidget(),
+            'notes': SummernoteWidget(attrs={'width': '100%'}),
+            'ingredients': SummernoteWidget(attrs={'width': '100%'}),
+            'method': SummernoteWidget(attrs={'width': '100%'}),
         }
         help_texts = {
             'title': 'Enter a descriptive title for your recipe!',
@@ -37,7 +37,7 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('title', 'image', 'content', 'rating')
         widgets = {
-            'content': SummernoteWidget(),
+            'content': SummernoteWidget(attrs={'width': '100%'}),
         }
         help_texts = {
             'title': 'Enter a descriptive title for your review - sum up your thoughts with a snappy line!',

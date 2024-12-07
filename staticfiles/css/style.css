@@ -17,12 +17,27 @@ iframe {
   width: 100% !important;
 }
 
-iframe#id_content_iframe {
-  width: 100% !important;
+.summernote-div {
+  filter: invert(1);
 }
 
-.note-editor.note-frame.panel.panel-default {
+.panel-heading.note-toolbar {
+  filter: invert(.2);
+}
+
+.note-editor {
   width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.note-editable {
+  overflow: auto !important;
+  max-width: 100% !important;
+}
+
+.note-editing-area {
+  overflow: visible !important;
 }
 
 .text-secondary {
@@ -63,6 +78,10 @@ span.asteriskField {
     border: 1px solid #F0FFFF;
     border-radius: 0px 0px 8px 8px !important;
   }
+
+.nav-link.dropdown-toggle.show {
+    color: #4aaf38;
+}
 
 .dropdown-item:hover {
     color: #ffffff;
@@ -234,6 +253,25 @@ p.blog_post-details {
     margin-bottom: 0 5px;
   }
 
+  #id_title {
+    filter: invert(1);
+    color: #0f0000;
+  }
+
+  #id_image {
+    filter: invert(1);
+    color: #0f0000;
+  }
+
+  #id_serves {
+    filter: invert(1);
+    color: #0f0000;
+  }
+
+  #id_cuisine {
+    filter: invert(1);
+    color: #0f0000;
+  }
 
 .modal {
     --bs-modal-width: 60vw;
