@@ -2,6 +2,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block html_class %}
+dark
+{% endblock %}
+
 {% block title %}
 {{recipe.title}}
 {% endblock %}
