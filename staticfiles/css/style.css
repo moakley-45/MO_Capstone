@@ -261,6 +261,7 @@ p.blog_post-details {
   #id_image {
     filter: invert(1);
     color: #0f0000;
+    background-color: #ffffff;
   }
 
   #id_serves {
@@ -271,6 +272,7 @@ p.blog_post-details {
   #id_cuisine {
     filter: invert(1);
     color: #0f0000;
+    background-color: #ffffff;
   }
 
 .modal {
