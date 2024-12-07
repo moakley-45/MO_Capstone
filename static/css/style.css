@@ -275,6 +275,12 @@ p.blog_post-details {
     background-color: #ffffff;
   }
 
+  #id_rating {
+    filter: invert(1);
+    color: #0f0000;
+    background-color: #ffffff;
+  }
+
 .modal {
     --bs-modal-width: 60vw;
 }

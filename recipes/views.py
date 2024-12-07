@@ -97,40 +97,43 @@ def recipe_detail(request, slug):
         'comment_form': comment_form,
     }
     return render(request, 'recipes/recipes_page.html', context)
+
 @login_required
 def edit_review(request, slug, review_id):
     recipe = get_object_or_404(Recipe, slug=slug)
-    review = get_object_or_404(Review, id=review_id)
+    review = get_object_or_404(Review, id=review_id, author=request.user)
 
-    # Check if the user is the author of the review
-    if request.user != review.author:
-        messages.error(request, "You can only edit your own reviews.")
-        return redirect('recipes:recipe_detail', slug=slug)
-
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES, instance=review)
-        
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Your review has been updated successfully!')
+            review = form.save(commit=False)
+            review.approved = False
+            review.save()
+            messages.success(request, 'Your review has been updated and is awaiting re-approval from our Admin Team. Check back soon!')
             return redirect('recipes:recipe_detail', slug=slug)
-        else:
-            messages.error(request, 'Error updating review! Please correct the errors below.')
-
     else:
         form = ReviewForm(instance=review)
 
-    return render(request, 'recipes/edit_review.html', {'form': form, 'recipe': recipe})
+    context = {
+        'form': form,
+        'recipe': recipe,
+        'review': review,
+    }
+    return render(request, 'recipes/edit_review.html', context)
 
 @login_required
 def delete_review(request, slug, review_id):
     review = get_object_or_404(Review, id=review_id)
     if request.user != review.author:
-        return JsonResponse({"error": "You can only delete your own reviews."}, status=403)
+        messages.error(request, "You can only delete your own reviews.")
+        return redirect('recipes:recipe_detail', slug=slug)
     
-    review.delete()
-    return JsonResponse({"message": "Review deleted successfully."})
-
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, 'Your review has been successfully deleted.')
+        return redirect('recipes:recipe_detail', slug=slug)
+    
+    return render(request, 'recipes/delete_review_confirm.html', {'review': review})
 
 @login_required
 def submit_recipe(request):
