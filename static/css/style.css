@@ -13,6 +13,18 @@ main {
     padding: 0 20px !important;
 }
 
+iframe {
+  width: 100% !important;
+}
+
+iframe#id_content_iframe {
+  width: 100% !important;
+}
+
+.note-editor.note-frame.panel.panel-default {
+  width: 100% !important;
+}
+
 .text-secondary {
   color: #BABFC4 !important;
 }
