@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const editReviewButtons = document.getElementsByClassName("btn-edit-review");
-    const editCommentButtons = document.getElementsByClassName("btn-edit-comment");
-    const editReviewModalElement = document.getElementById("editReviewModal");
+    const editCommentButtons = document.getElementsByClassName("btn-edit");
+    const deleteCommentButtons = document.getElementsByClassName("btn-delete");
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteConfirmLink = document.getElementById("deleteConfirm");
 
-    // Function to handle button clicks
+    // Function to handle button clicks for editing
     function handleEditButtonClick(e) {
         e.preventDefault();
-        let editUrl = e.target.getAttribute("href");
-        window.location.href = editUrl;
+        let editUrl = e.target.getAttribute("data-url"); // Use data-url attribute
+        window.location.href = editUrl;  // Redirect to edit URL
     }
 
     // Handle edit review buttons
@@ -26,6 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } else {
         console.log("No edit comment buttons found");
+    }
+
+    // Handle delete comment buttons
+    if (deleteCommentButtons.length > 0) {
+        for (let button of deleteCommentButtons) {
+            button.addEventListener("click", function(e) {
+                e.preventDefault();
+                const commentId = this.getAttribute('data-comment-id');
+                const deleteUrl = this.getAttribute('data-url'); // Get URL from data-url attribute
+
+                // Set the confirmation link for deletion
+                deleteConfirmLink.href = deleteUrl;
+
+                // Show the delete confirmation modal
+                const modalInstance = new bootstrap.Modal(deleteModal);
+                modalInstance.show();
+            });
+        }
+    } else {
+        console.log("No delete comment buttons found");
     }
 
     function checkScreenSize() {

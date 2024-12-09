@@ -21,7 +21,7 @@ def blog_post_detail(request, slug):
     comments = blog_post.comments.all().order_by("-created_on")
     comment_count = blog_post.comments.filter(approved=True).count()
 
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -37,10 +37,10 @@ def blog_post_detail(request, slug):
         request,
         "blog/blog_post.html",
         {
-        "blog_post": blog_post,
-        "comments": comments,
-        "comment_count": comment_count,
-        "comment_form": comment_form,
+            "blog_post": blog_post,
+            "comments": comments,
+            "comment_count": comment_count,
+            "comment_form": comment_form,
         },
     )
 
@@ -56,12 +56,13 @@ def add_comment(request, blog_post_id):
                 body=body,
                 approved=False
             )
+            messages.success(request, 'Your comment has been submitted and is awaiting approval.')
     return redirect('blog_post_detail', slug=blog_post.slug)
 
 @login_required
 def comment_edit(request, slug, comment_id):
     """
-    view to edit comments
+    View to edit comments.
     """
     queryset = Blog_Post.objects.filter(status=1)
     blog_post = get_object_or_404(queryset, slug=slug)
@@ -71,29 +72,37 @@ def comment_edit(request, slug, comment_id):
         comment_form = CommentForm(data=request.POST, instance=comment)
 
         if comment_form.is_valid() and comment.author == request.user:
-            comment = comment_form.save(commit=False)
-            comment.post = blog_post
-            comment.approved = False
-            comment.save()
+            comment_form.save() 
             messages.success(request, 'Comment Updated!')
+            return redirect('blog_post_detail', slug=slug)
         else:
             messages.error(request, 'Error updating comment!')
 
-    return HttpResponseRedirect(reverse('blog_post_detail', args=[slug]))
+    else:
+        comment_form = CommentForm(instance=comment)
+
+    return render(request, 'blog/edit_comment.html', {
+        'form': comment_form,
+        'blog_post': blog_post,
+        'comment': comment,
+    })
 
 @login_required
 def comment_delete(request, slug, comment_id):
     """
-    view to delete comment
+    View to delete a comment.
     """
     queryset = Blog_Post.objects.filter(status=1)
     blog_post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
-    if comment.author == request.user:
-        comment.delete()
-        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
-    else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+    if request.method == "POST":
+        if comment.author == request.user:
+            comment.delete()
+            messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+        else:
+            messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
-    return HttpResponseRedirect(reverse('blog_post_detail', args=[slug]))
+        return redirect('blog_post_detail', slug=slug)
+
+    return render(request, 'blog/delete_comment_confirm.html', {'comment': comment})

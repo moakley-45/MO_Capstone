@@ -1,19 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
     const editReviewButtons = document.getElementsByClassName("btn-edit-review");
+    const editCommentButtons = document.getElementsByClassName("btn-edit-comment");
     const editReviewModalElement = document.getElementById("editReviewModal");
 
+    // Function to handle button clicks
+    function handleEditButtonClick(e) {
+        e.preventDefault();
+        let editUrl = e.target.getAttribute("href");
+        window.location.href = editUrl;
+    }
+
+    // Handle edit review buttons
     if (editReviewButtons.length > 0) {
         for (let button of editReviewButtons) {
-            button.addEventListener("click", (e) => {
-                e.preventDefault();
-                let reviewId = e.target.getAttribute("data-review-id");
-                let editUrl = e.target.getAttribute("href");
-                
-                window.location.href = editUrl;
-            });
+            button.addEventListener("click", handleEditButtonClick);
         }
     } else {
         console.log("No edit review buttons found");
+    }
+
+    // Handle edit comment buttons
+    if (editCommentButtons.length > 0) {
+        for (let button of editCommentButtons) {
+            button.addEventListener("click", handleEditButtonClick);
+        }
+    } else {
+        console.log("No edit comment buttons found");
     }
 
     function checkScreenSize() {

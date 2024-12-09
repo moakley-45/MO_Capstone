@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Comment</h2>
+
+<!-- Display messages if any -->
+{% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Show original comment body -->
+<div class="original-comment">
+    <p><strong>Original Comment:</strong></p>
+    <div>{{ comment.body | linebreaks }}</div>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Update Comment</button>
+</form>
+
+<a href="{% url 'blog_post_detail' slug=blog_post.slug %}" class="btn btn-secondary mt-3">Cancel</a>
+{% endblock %}

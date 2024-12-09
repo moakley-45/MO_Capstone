@@ -7,12 +7,12 @@ Search Results for "{{ query }}"
 {% endblock %}
 
 {% block content %}
-    <h1>Search Results for "{{ query }}"</h1>
-    {% if results %}
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {% for result in results %}
-                    {% if result|is_recipe %}
+<h1>Search Results for "{{ query }}"</h1>
+{% if results %}
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for result in results %}
+                {% if result|is_recipe %}
                     <div class="col">
                         <div class="card h-100">
                             <div class="card-body bg-dark">
@@ -22,26 +22,28 @@ Search Results for "{{ query }}"
                                     </a>
                                 </div>
                                 <h2 class="card-title recipe-title">
-                                    <a href="{% url 'recipes:recipe_detail' result.slug %}" class="recipe-link">{{result.title}}</a>
+                                    <a href="{% url 'recipes:recipe_detail' result.slug %}" class="recipe-link">{{ result.title }}</a>
                                 </h2>
-                                <p class="card-text recipe-creator">Author: {{result.creator}}</p>
+                                <p class="card-text recipe-creator">Author: {{ result.creator }}</p>
                             </div>
                         </div>
                     </div>
-                    {% else %}
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body bg-dark">
-                                    <h2 class="card-title">Blog Post: {{ result.title }}</h2>
-                                    <span class="card-text">{{ result.content|strip_tags|truncatewords:20 }}</span>
-                                </div>
+                {% else %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body bg-dark">
+                                <h2 class="card-title blog-post-title">
+                                    <a href="{% url 'blog:blog_post_detail' result.slug %}" class="post-link">Blog Post: {{ result.title }}</a>
+                                </h2>
+                                <span class="card-text">{{ result.content|strip_tags|truncatewords:20 }}</span>
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
-    {% else %}
-        <p>No results found.</p>
-    {% endif %}
+    </div>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
 {% endblock %}

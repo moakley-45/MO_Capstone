@@ -44,6 +44,11 @@ iframe {
   color: #BABFC4 !important;
 }
 
+textarea {
+  filter: invert(1);
+  color: #0f0000;
+}
+
 h1 {
     color: #F0FFFF;
 }
@@ -79,6 +84,10 @@ span.asteriskField {
     border-radius: 0px 0px 8px 8px !important;
   }
 
+  .nav-link.active {
+    color: #4aaf38;
+}
+
 .nav-link.dropdown-toggle.show {
     color: #4aaf38;
 }
@@ -101,6 +110,11 @@ span.asteriskField {
 
 .icon {
     margin-right: 5px; 
+}
+
+input.form-control.me-2 {
+  filter: invert(1);
+  color: #0f0000;
 }
 
 button.btn.btn-outline-success.search-button {
