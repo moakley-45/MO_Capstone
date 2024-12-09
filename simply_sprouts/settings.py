@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
 
 if os.path.isfile("env.py"):
    import env
@@ -177,6 +178,4 @@ SUMMERNOTE_CONFIG = {
     },
 }
 
-CLOUDINARY_URL_OPTIONS = {
-    'secure': True
-}
+cloudinary.config(secure=True,)
