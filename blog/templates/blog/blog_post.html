@@ -8,28 +8,26 @@
 
 {% block content %}
 
-<body>
-
     <!-- Main Blog Page content-->
+    <article>
     <h1>{{blog_post.title}}</h1>
     <p class="blog_post-details">Written by: <u>{{blog_post.author}}</u> | {{blog_post.created_on}} </p>
     <hr>
-    <article>
     {{blog_post.content | safe }}
     </article>
     <hr>
     <!-- Comments Section -->
     
- <div class="row">
-    <div class="col-12">
-      <strong class="text-secondary">
-        <h3><span>Comments:  <i class="far fa-comments"></i> {{ comment_count }}</span></h3>
-      </strong>
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-secondary">
+          <strong><span>Comments: <i class="far fa-comments"></i> 0</span></strong>
+        </h3>
+      </div>
+      <div class="col-12">
+        <hr>
+      </div>
     </div>
-    <div class="col-12">
-      <hr>
-    </div>
-  </div>
 
     <div class="container">
       <div class="row">
@@ -85,8 +83,6 @@
       </div>
     </div>
   
-
-</body>
 
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1"

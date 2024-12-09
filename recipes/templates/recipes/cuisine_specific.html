@@ -12,12 +12,12 @@
     <div class="col">
         <div class="card h-100">
             <div class="card-body bg-dark">
-                <h2 class="card-title recipe-title">
+                <div class="image-container">
                     <a href="{% url 'recipes:recipe_detail' recipe.slug %}">
-                        <div class="image-container">
-                            <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
-                        </div>
+                        <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
                     </a>
+                </div>
+                <h2 class="card-title recipe-title">
                     <a href="{% url 'recipes:recipe_detail' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
                 </h2>
                 <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>

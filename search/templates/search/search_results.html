@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
+{% load humanize %}
+
+{% block title %}
+Search Results for "{{ query }}"
+{% endblock %}
 
 {% block content %}
     <h1>Search Results for "{{ query }}"</h1>
@@ -8,27 +13,27 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% for result in results %}
                     {% if result|is_recipe %}
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body bg-dark">
-                                    <h2 class="card-title recipe-title">
-                                        <a href="{% url 'recipes:recipe_detail' result.slug %}">
-                                            <div class="image-container">
-                                            <img class="recipe_image img-fluid" src="{{ result.image.url }}" alt="{{ result.title }}">
-                                        </div>
-                                        </a>
-                                        <a href="{% url 'recipes:recipe_detail' result.slug %}" class="recipe-link">{{result.title}}</a>                        
-                                    </h2>
-                                    <p class="card-text recipe-creator">Author: {{result.creator}}</p>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body bg-dark">
+                                <div class="image-container">
+                                    <a href="{% url 'recipes:recipe_detail' result.slug %}">
+                                        <img class="recipe_image img-fluid" src="{{ result.image.url }}" alt="{{ result.title }}">
+                                    </a>
                                 </div>
+                                <h2 class="card-title recipe-title">
+                                    <a href="{% url 'recipes:recipe_detail' result.slug %}" class="recipe-link">{{result.title}}</a>
+                                </h2>
+                                <p class="card-text recipe-creator">Author: {{result.creator}}</p>
                             </div>
                         </div>
+                    </div>
                     {% else %}
                         <div class="col">
                             <div class="card h-100">
                                 <div class="card-body bg-dark">
                                     <h2 class="card-title">Blog Post: {{ result.title }}</h2>
-                                    <p class="card-text">{{ result.content|truncatewords_html:20|safe }}</p>
+                                    <span class="card-text">{{ result.content|strip_tags|truncatewords:20 }}</span>
                                 </div>
                             </div>
                         </div>

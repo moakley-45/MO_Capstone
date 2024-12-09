@@ -6,113 +6,108 @@ All Recipes
 
 {% block content %}
 
-<body>
-    <h1 class="recipes-title p-4" style="text-align: center; font-size: 5rem;">All Recipes</h1>
+<h1 class="recipes-title p-4" style="text-align: center; font-size: 5rem;">All Recipes</h1>
 
-    <div class="container mb-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8 sort-card">
-                <div class="card">
-                    <div class="card-body bg-dark">
-                        <h5 class="card-title text-center mb-3">Sort Recipes</h5>
-                        <div class="d-flex justify-content-center flex-column">
-                            <div class="btn-group-vertical d-md-none" role="group" aria-label="Sorting options">
-                                <a href="?sort=alphabetical{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info mb-2 {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
-                                <a href="?sort=oldest{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info mb-2 {% if current_sort == 'oldest' %}active{% endif %}">Oldest
-                                    First</a>
-                                <a href="?sort=-created_on{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info mb-2 {% if current_sort == '-created_on' %}active{% endif %}">Newest
-                                    First</a>
-                                <a href="?user_submitted={% if user_submitted %}false{% else %}true{% endif %}{% if current_sort and current_sort != '-created_on' %}&sort={{ current_sort }}{% endif %}"
-                                    class="btn sort-button btn-info {% if user_submitted %}active{% endif %}">
-                                    {% if user_submitted %}All Recipes{% else %}User-Submitted Only{% endif %}
-                                </a>
-                            </div>
-                            <div class="btn-group d-none d-md-flex" role="group" aria-label="Sorting options">
-                                <a href="?sort=alphabetical{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
-                                <a href="?sort=oldest{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info {% if current_sort == 'oldest' %}active{% endif %}">Oldest
-                                    First</a>
-                                <a href="?sort=-created_on{% if user_submitted %}&user_submitted=true{% endif %}"
-                                    class="btn sort-button btn-info {% if current_sort == '-created_on' %}active{% endif %}">Newest
-                                    First</a>
-                                <a href="?user_submitted={% if user_submitted %}false{% else %}true{% endif %}{% if current_sort and current_sort != '-created_on' %}&sort={{ current_sort }}{% endif %}"
-                                    class="btn sort-button btn-info {% if user_submitted %}active{% endif %}">
-                                    {% if user_submitted %}All Recipes{% else %}User-Submitted Only{% endif %}
-                                </a>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for recipe in recipes_pages %}
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body bg-dark">
-                        <h2 class="card-title recipe-title">
-                            <a href="{% url 'recipes:recipe_detail' recipe.slug %}">
-                                <div class="image-container">
-                                    <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
-                                </div>
+<div class="container mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 sort-card">
+            <div class="card">
+                <div class="card-body bg-dark">
+                    <h5 class="card-title text-center mb-3">Sort Recipes</h5>
+                    <div class="d-flex justify-content-center flex-column">
+                        <div class="btn-group-vertical d-md-none" role="group" aria-label="Sorting options">
+                            <a href="?sort=alphabetical{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info mb-2 {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
+                            <a href="?sort=oldest{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info mb-2 {% if current_sort == 'oldest' %}active{% endif %}">Oldest
+                                First</a>
+                            <a href="?sort=-created_on{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info mb-2 {% if current_sort == '-created_on' %}active{% endif %}">Newest
+                                First</a>
+                            <a href="?user_submitted={% if user_submitted %}false{% else %}true{% endif %}{% if current_sort and current_sort != '-created_on' %}&sort={{ current_sort }}{% endif %}"
+                                class="btn sort-button btn-info {% if user_submitted %}active{% endif %}">
+                                {% if user_submitted %}All Recipes{% else %}User-Submitted Only{% endif %}
                             </a>
-                            <a href="{% url 'recipes:recipe_detail' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
-                        </h2>
-                        <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
+                        </div>
+                        <div class="btn-group d-none d-md-flex" role="group" aria-label="Sorting options">
+                            <a href="?sort=alphabetical{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info {% if current_sort == 'alphabetical' %}active{% endif %}">Alphabetical</a>
+                            <a href="?sort=oldest{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info {% if current_sort == 'oldest' %}active{% endif %}">Oldest
+                                First</a>
+                            <a href="?sort=-created_on{% if user_submitted %}&user_submitted=true{% endif %}"
+                                class="btn sort-button btn-info {% if current_sort == '-created_on' %}active{% endif %}">Newest
+                                First</a>
+                            <a href="?user_submitted={% if user_submitted %}false{% else %}true{% endif %}{% if current_sort and current_sort != '-created_on' %}&sort={{ current_sort }}{% endif %}"
+                                class="btn sort-button btn-info {% if user_submitted %}active{% endif %}">
+                                {% if user_submitted %}All Recipes{% else %}User-Submitted Only{% endif %}
+                            </a>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
-            {% empty %}
-            <p>No recipes found.</p>
-            {% endfor %}
         </div>
     </div>
-    
+</div>
 
-    <!-- Pagination -->
-    {% if is_paginated %}
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ current_sort }}"
-                    aria-label="Previous">
-                    <span aria-hidden="true">&laquo; Previous</span>
-                </a>
-            </li>
-            {% endif %}
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for recipe in recipes_pages %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body bg-dark">
+                    <div class="image-container">
+                        <a href="{% url 'recipes:recipe_detail' recipe.slug %}">
+                            <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                        </a>
+                    </div>
+                    <h2 class="card-title recipe-title">
+                        <a href="{% url 'recipes:recipe_detail' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
+                    </h2>
+                    <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No recipes found.</p>
+        {% endfor %}
+    </div>
+</div>
 
-            {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-            <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
-            {% endfor %}
 
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ current_sort }}"
-                    aria-label="Next">
-                    <span aria-hidden="true">Next &raquo;</span>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-</body>
+<!-- Pagination -->
+{% if is_paginated %}
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ current_sort }}"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo; Previous</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ current_sort }}" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
 
 
 {% endblock %}

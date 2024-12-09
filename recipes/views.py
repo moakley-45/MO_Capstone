@@ -203,19 +203,29 @@ def review_comment_edit(request, slug, review_id, comment_id):
     review = get_object_or_404(Review, id=review_id)
     comment = get_object_or_404(ReviewComment, pk=comment_id)
 
+    if comment.author != request.user:
+        messages.error(request, 'You are not authorized to edit this comment.')
+        return redirect('recipes:recipe_detail', slug=slug)
+
     if request.method == "POST":
         comment_form = ReviewCommentForm(data=request.POST, instance=comment)
-
-        if comment_form.is_valid() and comment.author == request.user:
+        if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.review = review
             comment.approved = False
             comment.save()
             messages.success(request, 'Comment Updated!')
-        else:
-            messages.error(request, 'Error updating comment!')
+            return redirect('recipes:recipe_detail', slug=slug)
+    else:
+        comment_form = ReviewCommentForm(instance=comment)
 
-    return redirect('recipes:recipe_detail', slug=slug)
+    context = {
+        'form': comment_form,
+        'recipe': recipe,
+        'review': review,
+        'comment': comment,
+    }
+    return render(request, 'recipes/edit_comment.html', context)
 
 @login_required
 def review_comment_delete(request, slug, review_id, comment_id):

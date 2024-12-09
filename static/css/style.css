@@ -250,13 +250,24 @@ p.blog_post-details {
  
   .review_edit_buttons.mb-3 {
     text-align: center;
-    margin-bottom: 0 5px;
+    margin-bottom: 5px;
   }
 
   .review.mb-4 textarea {
     width: 100%;
     margin: auto;
   }
+
+  .comment {
+    background: #606060;
+    border-radius: 8px;
+    padding: 5px 8px 5px 8px;
+    margin-bottom: 40px;
+}
+
+.comment-edit-buttons {
+  text-align: center;
+}
 
   .comment-buttons {
     text-align: center;

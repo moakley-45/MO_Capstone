@@ -7,7 +7,6 @@ Home
 
 {% block content %}
 
-<body>
     <h1>Welcome to <em>Simply Sprouts!</em></h1>
 
     <div class="container welcome-message">
@@ -58,21 +57,17 @@ Home
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body bg-dark">
-                        <h2 class="card-title recipe-title">
+                        <div class="image-container">
                             <a href="{% url 'recipes:recipe_detail' recipe.slug %}">
-                                <div class="image-container">
-                                    {% if recipe.image %}
-                                    <img class="recipe_image img-fluid" src="{{ recipe.image.url }}"
-                                        alt="{{ recipe.title }}">
-                                    {% else %}
-                                    <img class="recipe_image img-fluid"
-                                        src="{% static 'images/Recipe-Placeholder.jpg' %}" alt="{{ recipe.title }}">
-                                    {% endif %}
-                                </div>
-
+                                {% if recipe.image %}
+                                <img class="recipe_image img-fluid" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                                {% else %}
+                                <img class="recipe_image img-fluid" src="{% static 'images/Recipe-Placeholder.jpg' %}" alt="{{ recipe.title }}">
+                                {% endif %}
                             </a>
-                            <a href="{% url 'recipes:recipe_detail' recipe.slug %}"
-                                class="recipe-link">{{recipe.title}}</a>
+                        </div>
+                        <h2 class="card-title recipe-title">
+                            <a href="{% url 'recipes:recipe_detail' recipe.slug %}" class="recipe-link">{{recipe.title}}</a>
                         </h2>
                         <p class="card-text recipe-creator">Author: {{recipe.creator}}</p>
                     </div>
@@ -83,10 +78,4 @@ Home
             {% endfor %}
         </div>
     </div>
-
-
-</body>
-
-</html>
-
 {% endblock %}
