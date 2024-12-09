@@ -18,36 +18,23 @@
 <hr>
 <!-- Comments Section -->
 
-<div class="row">
-  <div class="col-12">
-    <h3 class="text-secondary">
-      <strong><span>Comments: <i class="far fa-comments"></i> 0</span></strong>
-    </h3>
-  </div>
-  <div class="col-12">
-    <hr>
-  </div>
-</div>
-
 <div class="container">
   <div class="row">
     <div class="col-lg-8">
-      <div class="row">
-        <div class="card">
-          <div class="card-body">
+      <div class="p-3 border bg-dark">
+        <div class="blog-current-comments-column">
+            <h4>Comments: <i class="far fa-comments"></i> {{ comments|length }}</h4>
+            <hr>
             {% for comment in comments %}
-            <div class="p-2 comments
-              {% if not comment.approved and comment.author == user %}
-              faded{% elif not comment.approved %} d-none{% endif %}">
+            <div class="blog-comment_body mb-4" id="comment{{ comment.id }}">
               <p class="font-weight-bold">
                 <span class="font-weight-normal">{{ comment.author }} wrote:</span>
               </p>
               <hr>
-              <div id="comment{{ comment.id }}">
-                {{ comment.body | linebreaks }}
-              </div>
+              <span class="blog-comment-content">{{ comment.body | linebreaks }}</span>
               {% if not comment.approved and comment.author == user %}
-              <p class="approval">This comment is currently awaiting approval from our team of admins - please bear with
+              <p class="approval">This comment is currently awaiting approval from our team of admins - please bear
+                with
                 us!</p>
               {% endif %}
 
@@ -61,24 +48,23 @@
               <span class="font-weight-normal"> Commented at: {{ comment.created_on }}</span>
             </div>
             {% endfor %}
-          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="sticky-top">
-        <div class="card-body">
-          {% if user.is_authenticated %}
-          <h3>Leave a comment:</h3>
-          <p><em>Posting as: {{ user.username }}</em></p>
-          <form id="commentForm" method="post" style="margin-top: 1.3em;">
-            {{ comment_form | crispy }}
-            {% csrf_token %}
-            <button class="btn btn-success" type="submit">Submit Comment</button>
-          </form>
-          {% else %}
-          <p>Please <a href="{% url 'account_login' %}">login</a> to leave a comment.</p>
-          {% endif %}
+      <div class="col-lg-4">
+        <div class="sticky-top">
+          <div class="card-body">
+            {% if user.is_authenticated %}
+            <h3>Leave a comment:</h3>
+            <form id="commentForm" method="post" style="margin-top: 1.3em;">
+              {{ comment_form | crispy }}
+              {% csrf_token %}
+              <button class="btn btn-success" type="submit">Submit Comment</button>
+            </form>
+            {% else %}
+            <p>Please <a href="{% url 'account_login' %}">login</a> to leave a comment.</p>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>

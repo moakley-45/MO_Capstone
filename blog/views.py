@@ -29,7 +29,7 @@ def blog_post_detail(request, slug):
             comment.post = blog_post 
             comment.save()
             messages.success(request, 'Your comment has been successfully submitted and is awaiting approval from our Admin team - check back soon!')
-            return redirect('blog_post_detail', slug=slug)
+            return redirect('blog:blog_post_detail', slug=slug)  
     else:
         comment_form = CommentForm()
 
@@ -57,7 +57,7 @@ def add_comment(request, blog_post_id):
                 approved=False
             )
             messages.success(request, 'Your comment has been submitted and is awaiting approval.')
-    return redirect('blog_post_detail', slug=blog_post.slug)
+    return redirect('blog:blog_post_detail', slug=slug)  
 
 @login_required
 def comment_edit(request, slug, comment_id):
@@ -74,7 +74,7 @@ def comment_edit(request, slug, comment_id):
         if comment_form.is_valid() and comment.author == request.user:
             comment_form.save() 
             messages.success(request, 'Comment Updated!')
-            return redirect('blog_post_detail', slug=slug)
+            return redirect('blog:blog_post_detail', slug=slug)
         else:
             messages.error(request, 'Error updating comment!')
 
@@ -96,13 +96,10 @@ def comment_delete(request, slug, comment_id):
     blog_post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
-    if request.method == "POST":
-        if comment.author == request.user:
-            comment.delete()
-            messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
-        else:
-            messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+    if comment.author == request.user:
+        comment.delete()
+        messages.success(request, 'Comment deleted!')
+    else:
+        messages.error(request, 'You can only delete your own comments!')
 
-        return redirect('blog_post_detail', slug=slug)
-
-    return render(request, 'blog/delete_comment_confirm.html', {'comment': comment})
+    return redirect('blog:blog_post_detail', slug=slug)  

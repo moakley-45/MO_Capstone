@@ -24,5 +24,5 @@
     <button type="submit" class="btn btn-primary">Update Comment</button>
 </form>
 
-<a href="{% url 'blog_post_detail' slug=blog_post.slug %}" class="btn btn-secondary mt-3">Cancel</a>
+<a href="{% url 'blog:blog_post_detail' blog_post.slug %}" class="btn btn-secondary mt-3">Cancel</a>
 {% endblock %}

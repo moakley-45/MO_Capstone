@@ -70,6 +70,18 @@ span.asteriskField {
   filter: invert(1);
 }
 
+.menu-nav-image-container {
+  height: calc(100% - 40px);
+  overflow: hidden;
+  position: relative;
+}
+
+img.nav-image {
+display: block;
+margin-top: -20px;
+margin-bottom: -20px;
+}
+
 .nav-link {
     color: #F0FFFF;
   }
@@ -274,13 +286,15 @@ p.blog_post-details {
 
   .comment {
     background: #606060;
-    border-radius: 8px;
+    border-radius: 0px 8px;
     padding: 5px 8px 5px 8px;
+    border: 5px inset #f0ffff;
     margin-bottom: 40px;
 }
 
 .comment-edit-buttons {
   text-align: center;
+  color: #f0ffff;
 }
 
   .comment-buttons {
@@ -330,18 +344,27 @@ p.blog_post-details {
     max-width: 100%;
 }
 
-.p-2.comments {
-    background: grey;
-    border-radius: 8px;
-    margin-bottom: 10px;
+.blog-comment_body {
+  background: #606060;
+  border-radius: 0px 18px;
+  padding: 5px 18px 5px 18px;
+  border: 5px inset #f0ffff;
 }
 
 p.approval {
-    background: yellow;
-    border-radius: 8px;
-    border: grey 1px solid;
-    padding: 0 8px;
-    font-weight: 700;
+  background: #123524;
+  border-radius: 8px;
+  border: #f0ffff 1px solid;
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
+button.btn.btn-info.btn-edit {
+  color: #f0ffff;
+}
+
+label[for="id_body"] {
+  display: none;
 }
 
 /* Form Styling */
@@ -387,6 +410,17 @@ label {
     }
 }
 
+@media screen and (max-width: 870px) {
+li.image-link.nav-item {
+  display: none;
+}
+li.nav-item.dropdown {
+  width: 60%;
+}
+form.d-flex.mb-2.mb-lg-0.align-items-center {
+  padding: 0 10%;
+}
+}
 
 /* Adjust column widths */
   @media (min-width: 992px) {
