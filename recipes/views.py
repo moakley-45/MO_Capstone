@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 from django.utils.text import slugify
 import random
+import logging
+
 
 
 class RecipeView(generic.ListView):
@@ -68,6 +70,8 @@ def recipe_detail(request, slug):
     review_form = ReviewForm()
     comment_form = ReviewCommentForm()
 
+    approved_comments_count = {review.id: review.comments.filter(approved=True).count() for review in reviews}
+
     if request.method == "POST" and request.user.is_authenticated:
         if 'review_submit' in request.POST:
             review_form = ReviewForm(request.POST, request.FILES)
@@ -99,28 +103,41 @@ def recipe_detail(request, slug):
     }
     return render(request, 'recipes/recipes_page.html', context)
 
+logger = logging.getLogger(__name__)
+
 @login_required
 def edit_review(request, slug, review_id):
-    recipe = get_object_or_404(Recipe, slug=slug)
-    review = get_object_or_404(Review, id=review_id, author=request.user)
+    logger.debug(f"Attempting to edit review. Slug: {slug}, Review ID: {review_id}")
+    
+    try:
+        recipe = get_object_or_404(Recipe, slug=slug)
+        logger.debug(f"Recipe found: {recipe}")
+        
+        review = get_object_or_404(Review, id=review_id, author=request.user)
+        logger.debug(f"Review found: {review}")
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES, instance=review)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.approved = False
-            review.save()
-            messages.success(request, 'Your review has been updated and is awaiting re-approval from our Admin Team. Check back soon!')
-            return redirect('recipes:recipe_detail', slug=slug)
-    else:
-        form = ReviewForm(instance=review)
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, request.FILES, instance=review)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.approved = False
+                review.save()
+                messages.success(request, 'Your review has been updated and is awaiting re-approval from our Admin Team. Check back soon!')
+                return redirect('recipes:recipe_detail', slug=slug)
+        else:
+            form = ReviewForm(instance=review)
 
-    context = {
-        'form': form,
-        'recipe': recipe,
-        'review': review,
-    }
-    return render(request, 'recipes/edit_review.html', context)
+        context = {
+            'form': form,
+            'recipe': recipe,
+            'review': review,
+        }
+        return render(request, 'recipes/edit_review.html', context)
+    
+    except Exception as e:
+        logger.error(f"Error in edit_review: {str(e)}")
+        messages.error(request, 'An error occurred while trying to edit the review.')
+        return redirect('recipes:recipe_detail', slug=slug)
 
 @login_required
 def delete_review(request, slug, review_id):
