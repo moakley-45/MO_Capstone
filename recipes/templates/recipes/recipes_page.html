@@ -124,41 +124,43 @@ dark
                 {% endif %}
                 {% endfor %}
 
-                {% if user.is_authenticated %}
-                <form method="post"
-                    action="{% url 'recipes:add_review_comment' slug=recipe.slug review_id=review.id %}">
-                    {% csrf_token %}
-                    {{ comment_form }}
-                    <br>
-                    <div class="comment-buttons">
-                        <button class="btn text-center btn-info" type="submit" name="comment_submit">Add
-                            Comment</button>
-                    </div>
-                </form>
-                {% endif %}
+                    {% if user.is_authenticated %}
+                    <form method="post"
+                        action="{% url 'recipes:add_review_comment' slug=recipe.slug review_id=review.id %}">
+                        {% csrf_token %}
+                        {{ comment_form }}
+                        <br>
+                        <div class="comment-buttons">
+                            <button class="btn text-center btn-info" type="submit" name="comment_submit">Add
+                                Comment</button>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-            </div>
-        <div class="col-12 col-lg-6 mb-3">
-    <div class="p-3 border bg-dark">
-        <div class="new-review-column">
-            <h2 class="mb-4">Leave a Review</h2>
-            {% if user.is_authenticated %}
-            <form method="post" action="{% url 'recipes:submit_review' recipe.slug %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% crispy review_form %}
-            </form>
-            {% else %}
-            <div class="alert alert-info" role="alert">
-                <p class="text-start m-3">You are not currently logged in - please
-                    <a href="{% url 'account_signup' %}">Register</a> or
-                    <a href="{% url 'account_login' %}">Login</a> to access the site's full features!
-                </p>
-            </div>
-            {% endif %}
         </div>
     </div>
+
+    <div class="col-12 col-lg-6 mb-3">
+        <div class="p-3 border bg-dark">
+            <div class="new-review-column">
+                <h2 class="mb-4">Leave a Review</h2>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'recipes:submit_review' recipe.slug %}"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% crispy review_form %}
+                </form>
+                {% else %}
+                <div class="alert alert-info" role="alert">
+                    <p class="text-start m-3">You are not currently logged in - please
+                        <a href="{% url 'account_signup' %}">Register</a> or
+                        <a href="{% url 'account_login' %}">Login</a> to access the site's full features!
+                    </p>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
