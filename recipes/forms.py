@@ -30,7 +30,7 @@ class RecipeForm(forms.ModelForm):
         self.helper.layout = Layout(
             *[Field(field, template='recipes/custom_field.html') for field in self.fields]
         )
-        self.helper.add_input(Submit('submit', 'Submit Recipe'))
+        self.helper.add_input(Submit('submit', 'Submit Recipe', css_class='btn btn-info', id='recipeSubmitButton'))
  
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -60,7 +60,7 @@ class ReviewForm(forms.ModelForm):
             Field('rating', wrapper_class='mb-2'),
             HTML('<div class="help-text mb-2">{{ form.rating.help_text }}</div>'),
         )
-        self.helper.add_input(Submit('submit', 'Submit Review', id='reviewSubmitButton'))
+        self.helper.add_input(Submit('submit', 'Submit Review', css_class='btn btn-info', id='reviewSubmitButton'))
 
 
 class ReviewCommentForm(forms.ModelForm):

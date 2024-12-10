@@ -85,7 +85,8 @@ dark
                         {% if user == review.author %}
                         <div class="review_edit_buttons mb-3">
                             <a href="{% url 'recipes:edit_review' slug=recipe.slug review_id=review.id %}"
-                                class="btn btn-info btn-sm btn-edit-review" data-review-id="{{ review.id }}">Edit
+                                class="btn btn-info btn-sm btn-edit-review btn-edit"
+                                data-url="{% url 'recipes:edit_review' slug=recipe.slug review_id=review.id %}">Edit
                                 Review</a>
                             <a href="{% url 'recipes:delete_review' slug=recipe.slug review_id=review.id %}"
                                 class="btn btn-danger btn-sm btn-delete-review" data-review-id="{{ review.id }}">Delete
@@ -94,7 +95,7 @@ dark
                         {% endif %}
                     </div>
 
-                    <h4>Comments: <i class="far fa-comments"></i> {{ comments|length }}</h4>
+                    <h4><i class="far fa-comments"></i> Comments: </h4>
                     {% for comment in review.comments.all %}
                     {% if comment.approved %}
                     <div class="comment">
@@ -104,60 +105,62 @@ dark
                         <hr>
                         <p><em>On {{ comment.created_on }}</em></p>
                         {% if user == comment.author %}
-                        <div class="comment-edit-buttons">
-                            <a href="{% url 'recipes:review_comment_edit' slug=recipe.slug review_id=review.id comment_id=comment.id %}"
-                                class="btn btn-info btn-sm btn-edit-comment">Edit Comment</a>
-                            <a href="{% url 'recipes:review_comment_delete' slug=recipe.slug review_id=review.id comment_id=comment.id %}"
-                                class="btn btn-danger btn-sm btn-delete-comment">Delete Comment</a>
-                        </div>
-                        {% endif %}
+                        <a href="{% url 'recipes:review_comment_edit' slug=recipe.slug review_id=review.id comment_id=comment.id %}"
+                            class="btn btn-info btn-sm btn-edit-comment btn-edit"
+                            data-url="{% url 'recipes:review_comment_edit' slug=recipe.slug review_id=review.id comment_id=comment.id %}">Edit
+                            Comment</a>
+                        <a href="{% url 'recipes:review_comment_delete' slug=recipe.slug review_id=review.id comment_id=comment.id %}"
+                            class="btn btn-danger btn-sm btn-delete-comment btn-delete"
+                            data-url="{% url 'recipes:review_comment_delete' slug=recipe.slug review_id=review.id comment_id=comment.id %}"
+                            data-comment-id="{{ comment.id }}">Delete Comment</a>
                     </div>
-                    {% else %}
-                    <div class="comment">
-                        <p>Your comment is currently under moderation and will be visible once approved.</p>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% if user.is_authenticated %}
-                    <form method="post"
-                        action="{% url 'recipes:add_review_comment' slug=recipe.slug review_id=review.id %}">
-                        {% csrf_token %}
-                        {{ comment_form }}
-                        <br>
-                        <div class="comment-buttons">
-                            <button class="btn text-center btn-info" type="submit" name="comment_submit">Add
-                                Comment</button>
-                        </div>
-                    </form>
                     {% endif %}
                 </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-lg-6 mb-3">
-        <div class="p-3 border bg-dark">
-            <div class="new-review-column">
-                <h2 class="mb-4">Leave a Review</h2>
-                {% if user.is_authenticated %}
-                <form method="post" action="{% url 'recipes:submit_review' recipe.slug %}"
-                    enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% crispy review_form %}
-                </form>
                 {% else %}
-                <div class="alert alert-info" role="alert">
-                    <p class="text-start m-3">You are not currently logged in - please
-                        <a href="{% url 'account_signup' %}">Register</a> or
-                        <a href="{% url 'account_login' %}">Login</a> to access the site's full features!
-                    </p>
+                <div class="comment">
+                    <p>Your comment is currently under moderation and will be visible once approved.</p>
                 </div>
                 {% endif %}
+                {% endfor %}
+
+                {% if user.is_authenticated %}
+                <form method="post"
+                    action="{% url 'recipes:add_review_comment' slug=recipe.slug review_id=review.id %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <br>
+                    <div class="comment-buttons">
+                        <button class="btn text-center btn-info" type="submit" name="comment_submit">Add
+                            Comment</button>
+                    </div>
+                </form>
+                {% endif %}
             </div>
+            {% endfor %}
         </div>
     </div>
+
+
+<div class="col-12 col-lg-6 mb-3">
+    <div class="p-3 border bg-dark">
+        <div class="new-review-column">
+            <h2 class="mb-4">Leave a Review</h2>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'recipes:submit_review' recipe.slug %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% crispy review_form %}
+            </form>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                <p class="text-start m-3">You are not currently logged in - please
+                    <a href="{% url 'account_signup' %}">Register</a> or
+                    <a href="{% url 'account_login' %}">Login</a> to access the site's full features!
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}
 

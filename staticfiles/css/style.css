@@ -153,6 +153,12 @@ button.btn.btn-outline-success.search-butto:hover {
   margin-top: 15px;
 }
 
+/* Form Styling */
+
+#submit-id-submit {
+  color: #f0ffff !important;
+}
+
 /* Modal Styles */
 
 .modal-content {
@@ -292,6 +298,18 @@ p.blog_post-details {
     margin-bottom: 40px;
 }
 
+.btn.btn-info.btn-sm.btn-edit-review.btn-edit {
+  color: #f0ffff;
+}
+
+.btn.btn-info.btn-sm.btn-edit-comment.btn-edit {
+  color: #f0ffff;
+}
+
+.btn.text-center.btn-info {
+  color: #f0ffff;
+}
+
 .comment-edit-buttons {
   text-align: center;
   color: #f0ffff;
@@ -391,6 +409,13 @@ label {
     border-radius: 8px;
   }
 
+  .input-group.mb-2 {
+    filter: invert(1);
+    color: #0f0000;
+    background-color: #ffffff;
+  }
+
+
 /* Media Queries */
 
 /* Adjust SummerNote content fields for Mobile screens */
@@ -431,6 +456,11 @@ form.d-flex.mb-2.mb-lg-0.align-items-center {
         text-align: center;
         left: -10%;
 }
+
+.container-fluid.d-flex.justify-content-between.align-items-center {
+  display: none !important;
+}
+
     .col-lg-8 {
       width: 60%;
     }
