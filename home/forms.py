@@ -2,6 +2,7 @@ from django import forms
 from .models import UserProfile
 from allauth.account.forms import SignupForm
 
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -17,6 +18,7 @@ class UserProfileForm(forms.ModelForm):
             if field in placeholders:
                 placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+
 
 class CustomSignupForm(SignupForm):
     def save(self, request):

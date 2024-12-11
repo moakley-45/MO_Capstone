@@ -3,8 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import UserProfile
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
-from recipes.models import Recipe 
+from recipes.models import Recipe
 import random
+
 
 @login_required
 def profile(request):
@@ -25,7 +26,7 @@ def profile(request):
         'form': form,
     }
     return render(request, template, context)
- 
+
 
 class HomePageView(TemplateView):
     template_name = "home/home.html"
