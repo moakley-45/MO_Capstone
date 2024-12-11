@@ -403,6 +403,10 @@ label {
     border-radius: 8px;
   }
 
+  #id_body {
+    width: 100%;
+  }
+
   .input-group.mb-2 {
     filter: invert(1);
     color: #0f0000;

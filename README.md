@@ -35,16 +35,6 @@ Project Board can be found here: <a href='https://github.com/users/moakley-45/pr
 4. [Security](#security)
 5. [Build Process and Agile Management](#build)
 5. [Features](#features)
-    - [User View - Registered/Unregistered](#user-view---registeredunregistered)
-    - [Role-Based Dashboard Features](#role-based-dashboard-features)
-    - [Role-Based Navigation](#role-based-navigation)
-    - [Soft Delete/Archiving for Patient Accounts](#soft-deletearchiving-for-patient-accounts)
-    - [Appointment Booking System](#appointment-booking-system)
-    - [Messaging System](#messaging-system)
-    - [Profile Management](#profile-management)
-    - [Confirmation Messages](#confirmation-messages)
-    - [CRUD Functionality](#crud-functionality)
-    - [Feature Showcase](#feature-showcase)
 6. [Future Features](#future-features)
 7. [Technologies & Languages Used](#technologies--languages-used)
 8. [Libraries & Frameworks](#libraries--frameworks)
@@ -54,14 +44,7 @@ Project Board can be found here: <a href='https://github.com/users/moakley-45/pr
     - [User Testing](#user-testing)
     - [Bugs](#bugs)
 11. [Deployment](#deployment)
-    - [Connecting to GitHub](#connecting-to-github)
-    - [Django Project Setup](#django-project-setup)
-    - [Cloudinary API](#cloudinary-api)
-    - [PostgreSQL](#postgresql)
-    - [Heroku deployment](#heroku-deployment)
 12. [Credits](#credits)
-    - [Code](#code)
-    - [Media](#media)
 13. [Acknowledgements](#acknowledgements)
 
 ## Overview
@@ -114,6 +97,36 @@ The site uses black, a mild grey tone and Azure (#f0ffff) for the main content s
 The full scheme can be seen below:
 
 ![Simply Sprouts color scheme](media/color_scheme.png)
+
+### User Stories
+
+- As a site user, I want to post reviews of recipes so that I can share my cooking experience and help others decide which recipes to try.
+
+- As a site user, I want to read reviews from other users so that I can gauge the popularity and quality of a recipe before trying it.
+
+- As a site user, I want to sort recipes by national cuisine so that I can easily find dishes from specific regions that interest me.
+
+- As a site user, I want to comment on recipes and reviews so that I can engage with the community and discuss cooking tips or modifications.
+
+- As a site user, I want to read blog posts from the admin team so that I can stay updated with new trends, cooking tips, and featured recipes.
+
+- As a site user, I want to manage my account settings so that I can update my personal information and preferences.
+
+- As a site admin, I want to moderate user Reviews and comments to ensure they adhere to community guidelines and maintain a positive environment.
+
+- As a site admin, I want to moderate user Reviews and comments to ensure they adhere to community guidelines and maintain a positive environment.
+
+- As a site admin, I want to create, edit, and publish blog posts so that we can provide valuable content to the site users.
+
+- As a site admin, I want to add, edit, and categorise recipes by region/national cuisine so that site users can easily find what they are looking for.
+
+- As a site admin, I want to manage user accounts, including banning accounts if necessary, to maintain site culture and integrity.
+
+- As the site owner, I want to ensure the website reflects our brand imagery, values and culture so that we build trust and loyalty among our users.
+
+### Wireframes
+
+
 
 ## Database Schema - ERD Diagram
 
@@ -221,7 +234,23 @@ The user can submit a Review of the Recipe in question; leaving their thoughts, 
 
 - Review comments
 
+The user can submit a comment on the Recipe Review in question; increasing social engagement:
+
+![Recipe Page - Reviews](media/Reicpe_Page_review_comments.png)
+
 ### Blog Features
+
+- Blog information
+
+Users can easily read the blog's content:
+
+![Recipe Page - Reviews](media/recipe_page_recipe.gif)
+
+- Blog Comments
+
+Users can comment on the blog, to increase social interaction:
+
+![Recipe Page - Reviews](media/Blog_Page_comments.png)
 
 ### Search Features
 
@@ -229,7 +258,7 @@ The user can submit a Review of the Recipe in question; leaving their thoughts, 
 
 Users can search for terms and get results from both the Recipe and Blog models:
 
-![Search Page features](media/recipe_page_recipe.gif)
+![Search Page features](media/Search_Page_Features.gif)
 
 ### _Future Features_
 
