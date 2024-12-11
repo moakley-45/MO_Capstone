@@ -21,22 +21,25 @@ class PostAdmin(SummernoteModelAdmin):
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']],
-            ['checkbox', ['checkbox']], 
+            ['checkbox', ['checkbox']],
         ]
         return options
 
     class Media:
         js = ('admin/js/custom_admin.js',)
 
+
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'recipe', 'rating', 'created_on', 'approved')
+    list_display = (
+        'title', 'author', 'recipe', 'rating', 'created_on', 'approved')
     list_filter = ('approved', 'created_on')
     search_fields = ('title', 'content', 'author__username', 'recipe__title')
     actions = ['approve_reviews']
 
     def approve_reviews(self, request, queryset):
         queryset.update(approved=True)
+
 
 @admin.register(ReviewComment)
 class ReviewCommentAdmin(admin.ModelAdmin):

@@ -19,17 +19,26 @@ CUISINE_CHOICES = (
     ('THA', 'Thai Cuisine'),
 )
 
+
 # Create your models here.
 class Recipe(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
-    image = CloudinaryField('image', default='placeholder')
+    creator = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="recipes")
+    image = CloudinaryField(
+        'image',
+        default='placeholder')
     notes = models.TextField()
     ingredients = models.TextField()
     method = models.TextField()
     serves = models.IntegerField()
-    cuisine = models.CharField(max_length=3, choices=CUISINE_CHOICES, default='NON')
+    cuisine = models.CharField(
+        max_length=3,
+        choices=CUISINE_CHOICES,
+        default='NON')
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
@@ -38,15 +47,22 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f"{self.title} | created by {self.creator}"
-    
+
     def save(self, *args, **kwargs):
         if not self.slug:  # Generate slug only if it's empty
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+
 class Review(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="reviews")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipe_reviews")
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name="reviews")
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="recipe_reviews")
     title = models.CharField(max_length=200)
     image = CloudinaryField('image', default='placeholder')
     content = models.TextField()
@@ -60,8 +76,12 @@ class Review(models.Model):
     def __str__(self):
         return f"Review by {self.author} on {self.recipe.title}"
 
+
 class ReviewComment(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
+    review = models.ForeignKey(
+        Review,
+        on_delete=models.CASCADE,
+        related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
