@@ -323,6 +323,165 @@ The all the modified Python files used in the site have been run through the CI 
 
 ## User Testing
 
+**Browser Compatibility**: The website has been tested on:
+- Chrome
+- Brave
+- Edge
+- Firefox
+- Safari
+
+**Responsiveness**:
+
+The platform has been tested across small handset-sized Mobile, Tablet size with iPad sizing, and both large and 4k Desktop devices to ensure optimal performance.
+
+**Testing Against User Stories**:
+
+- As a site user, I want to post reviews of recipes so that I can share my cooking experience and help others decide which recipes to try.
+
+This has been implemented with the Recipe Submit page, which has been tested and five user-submitted Recipes were created through the 'UserMars' test account.
+
+![User-submitted recipes](media/User_submitted_recipes.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site user, I want to read reviews from other users so that I can gauge the popularity and quality of a recipe before trying it.
+
+This has been implemented on the Recipe page, with a testing user account able to leave reviews with no issue, and edit and delete reviews when required.
+
+![User Reviews](media/User_Reviews.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site user, I want to sort recipes by national cuisine so that I can easily find dishes from specific regions that interest me.
+
+This has been implemented on the Cuisine Specific template pages, with a testing user account able to easy jump between Recipes of one single cuisine and filter as needed.
+
+![User Reviews](media/Specific_cuisines.gif)
+
+Issue resolves; outcome achieved ✅
+
+- As a site user, I want to comment on recipes and reviews so that I can engage with the community and discuss cooking tips or modifications.
+
+This has been implemented via the Recipe page and the Review comments, with a testing user account able to leave review comments with no issue, and edit and delete reviews when required.
+
+![User Reviews](media/Review_comments.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site user, I want to read blog posts from the admin team so that I can stay updated with new trends, cooking tips, and featured recipes.
+
+This has been implemented via the Blog Post page template, with a testing user account able to access and scroll through the content with no issue.
+
+![Blog testing](media/Blog_testing.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site user, I want to manage my account settings so that I can update my personal information and preferences.
+
+This has been implemented via the User profile template, with a testing user account able to edit its biography and replace its profile image with no issue.
+
+![User Profile testing](media/Testing_User_Profiles.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site admin, I want to moderate user Reviews and comments to ensure they adhere to community guidelines and maintain a positive environment.
+
+This has been implemented via the Admin section and is working as expected.
+
+![Admin - Reviews](media/Admin-reviews.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site admin, I want to create, edit, and publish blog posts so that we can provide valuable content to the site users.
+
+This has been implemented via the Admin section and is working as expected.
+
+![Admin - Blog Posts](media/Admin-blog-post.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site admin, I want to add, edit, and categorise recipes by region/national cuisine so that site users can easily find what they are looking for.
+
+This has been implemented via the Admin section and is working as expected.
+
+![Admin - Blog Posts](media/Admin-cuisine.png)
+
+Issue resolves; outcome achieved ✅
+
+- As a site admin, I want to manage user accounts, including banning accounts if necessary, to maintain site culture and integrity.
+
+This has been implemented via the Admin section and is working as expected.
+
+![Admin - Accounts](media/Admin-accounts.png)
+
+Issue resolves; outcome achieved ✅
+
+## Bugs 
+
+### Bug #1
+
+**Issue**:
+
+The Javascript element broke on the Recipe and Blog pages, causing elements within the base template such as the Navigation Dropdown to fail to trigger.
+
+**Cause**:
+
+The extended template had a reference to one form of Bootstrap's javascript dependencies, with a different reference to a difference Bootstrap Javascript version being present in the base template. The two script tags were disabling each other, stopping the javascript from loading. 
+
+**Steps taken to resolve**:
+
+I gradually rolled back the previous five changes to the extended template, which failed to resolve the issue. I was eventually able to resolve the issue with paired programming with John Rearden, one of Code Institue's _Coding Coaches_ who spotted the duplicate script references.
+
+The script reference in the extended template was removed and the base template reference updated, resolving the issue.
+
+### Bug #2
+
+**Issue**:
+
+The search page results template will only list Blog results, and not Recipe results.
+
+**Cause**:
+
+The issue was linked to the Search app's View.py file, which was not set up to reference the Recipe model.
+
+**Steps taken to resolve**:
+
+The view file was run through perplexity.ai, which noted the lack of any reference to the Recipe Model. This was then created and implemented into the View, while referencing a reference guide on building Search functionality into Djang projects.
+
+After a few minor editing faults resulting in Errors being thrown, the issue was resolved and approved via repeated testing. 
+
+### Bug #3
+
+**Issue**:
+
+The Review Edit button results in an Error Page when clicked, reporting that the URL has a Null element 
+
+**Cause**:
+
+A previous change to the site's JS file and the linked HTML template has resulted in changes to the data attributes of the Button element, causing the Javascript to not recognise it and the correct action to fail to trigger.
+
+**Steps taken to resolve**:
+
+Rolling back changes in the HTML template alone did not resolve the issue. Support was once again given through paired programming with John Rearden, who was able to spot the issue by combing through the live code with Inspect and the contents of the updated JS file.
+
+The HTML was updated to match the new JS and the correct functionality returned.
+
+### Bug #4
+
+**Issue**:
+
+After a round of styling updates, the Review section elements on the Recipe page rendered in error, with the two column divs appearing stacked vertically rather than side-by-side.
+
+**Cause**:
+
+Once of the changes had resulted in the closing `</div>` tag for the `Row` div being deleted in error, extending the Row too far and enveloping the second column.
+
+**Steps taken to resolve**:
+
+The page was run through a diff checker, which was able to spot the missing `</div>` element as part of the listed changes.
+
+This was returned to its correct position and the issue was resolved, allowing the two columns to sit horizontally next to each other again.
+
 ## Deployment
 
 This project was coded in Gitpod, a IDE maintained by the Code Institute Team based on Visual Studio. My linked code repo is staged on GitHub, with Git being used for version control, and the application was deployed to Heroku
@@ -340,4 +499,29 @@ The steps taken to deploy the site on to Heroku are as follows:
 9. Buildpack: Select Node.js and Python as the buildpacks for your project.
 10. Deploy: Once the configuration is complete, click the "Deploy Branch" button. After successful deployment, a "View" button will appear to take you to the live site.
 
-## Credits & Acknowlegments 
+## Credits & Acknowlegments
+
+### Code
+- Django Documentation
+- Django Crispy Forms Documentation
+- Summernote Documentation
+- Bootstrap Documentation
+- Perplexity AI - used for troubleshooting Error Messages and triaging code typos/editing mistakes
+- Favicon.io - for generating Favicons from my source files
+- Kevin Loughrey - Code Institute - for guidance, support and specific instruction on filtering
+
+**Reference Guides used**:
+
+- [Implementing Search in Django - Reintech Media](https://reintech.io/blog/implementing-search-in-django)
+- [How to order_by() last content `saved` in Admin Dashboard rather than by `date` or `id`. - Django Project forum user 'Drone4four'](https://forum.djangoproject.com/t/how-to-order-by-last-content-saved-in-admin-dashboard-rather-than-by-date-or-id/16488)
+
+
+## Media
+- Menu Icons and Favicon art were created by my partner Ella, all copyright is owned by her but used her with her full permission here.
+No ownership is claimed or commerical use made.
+- Recipe images are sourced from their original sites, which are credited in their respective recipe text.
+No ownership is claimed or commerical use made.
+- The Home page images are sourced from Unsplash and credit to their respective owners is listed in the images' Hover text and Alt text.
+No ownership is claimed or commerical use made.
+
+### 
