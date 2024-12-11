@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleEditButtonClick(e) {
         e.preventDefault();
         let editUrl = e.target.getAttribute("data-url"); // Use data-url attribute
-        console.log('editUrl', editUrl)
+        console.log('editUrl', editUrl);
         window.location.href = editUrl;  // Redirect to edit URL
     }
 

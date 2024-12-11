@@ -277,7 +277,7 @@ In a future development round, I would aim to implement the following features:
 - **Comments/ Reviews / Review Comments** - update the styling to reference the user's Profile Picture for greater social effect.
 - **Profile Page** - add the option to create a Recipe Book of saved recipes and a shopping list of ingredients based on selected Recipes
 - **Recipe Pages** - update the page with a Tips section and rebuild the Notes Section to have more exhaustive features.
-- **Recipe Pages** - update the page to offer Video footage, to support Tik/ Instagram Reel integration if desirable.
+- **Recipe Pages** - update the page to offer Video footage, to support Tiktok / Instagram Reel integration if desirable.
 - **Comments/ Reviews / Review Comments** - update the comments interface to have UpVotes/DownVotes feature, to increase social interaction.
 
 ## Technologies & Languages Used
@@ -302,6 +302,24 @@ In a future development round, I would aim to implement the following features:
 - Whitenoise - For serving static files
 
 ## Testing
+
+### Validator Testing
+
+The site's HTML templates were all passed by the Nu Html Checker, with the exception of pages that render the Summernote WYSIWGY Editor. The editor contains numerous HTML validation faults, but is dependent for the Summernote plug-in and is not part of the code created for this project:
+
+![HTML Validation](media/HTML-Validation.png)
+
+The CSS has fully passed the Jigsaw CSS Validator:
+
+![CSS Validation](media/CSS-Validation.png)
+
+The site's Javascript has passed the JSHint Validator, with the only issue raised with Bootstrap-dependent coding:
+
+![JS Validation](media/JS-validation.png)
+
+The all the modified Python files used in the site have been run through the CI Python Linter and pass with no errors:
+
+![PY Validation](media/PY-validation.png)
 
 ## User Testing
 

@@ -77,6 +77,7 @@ span.asteriskField {
 }
 
 img.nav-image {
+width: 7.5rem;
 display: block;
 margin-top: -20px;
 margin-bottom: -20px;
@@ -363,6 +364,12 @@ p.blog_post-details {
   border: 5px inset #f0ffff;
 }
 
+.blog-comment-content {
+  border-top: 1px solid;
+  border-bottom: 1px solid #f0ffff;
+  padding: 8px 0;
+}
+
 p.approval {
   background: #123524;
   border-radius: 8px;
@@ -435,6 +442,9 @@ label {
         padding: 15px;
         margin-top: 20px;
     }
+    a.nav-link.dropdown-toggle {
+      text-align: center;
+  }
     a.nav-link.dropdown-toggle.show {
       text-align: center;
   }
@@ -446,6 +456,12 @@ li.image-link.nav-item {
 }
 li.nav-item.dropdown {
   width: 60%;
+}
+a.nav-link.dropdown-toggle {
+  text-align: center;
+}
+a.nav-link.dropdown-toggle.show {
+  text-align: center;
 }
 form.d-flex.mb-2.mb-lg-0.align-items-center {
   padding: 0 10%;
