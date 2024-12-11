@@ -409,6 +409,10 @@ label {
     background-color: #ffffff;
   }
 
+  #id_profile_picture {
+    filter: invert(1);
+    color: #0f0000;
+  }
 
 /* Media Queries */
 
@@ -427,6 +431,9 @@ label {
         padding: 15px;
         margin-top: 20px;
     }
+    a.nav-link.dropdown-toggle.show {
+      text-align: center;
+  }
 }
 
 @media screen and (max-width: 870px) {

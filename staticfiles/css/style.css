@@ -153,12 +153,6 @@ button.btn.btn-outline-success.search-butto:hover {
   margin-top: 15px;
 }
 
-/* Form Styling */
-
-#submit-id-submit {
-  color: #f0ffff !important;
-}
-
 /* Modal Styles */
 
 .modal-content {
@@ -415,6 +409,10 @@ label {
     background-color: #ffffff;
   }
 
+  #id_profile_picture {
+    filter: invert(1);
+    color: #0f0000;
+  }
 
 /* Media Queries */
 
@@ -433,6 +431,9 @@ label {
         padding: 15px;
         margin-top: 20px;
     }
+    a.nav-link.dropdown-toggle.show {
+      text-align: center;
+  }
 }
 
 @media screen and (max-width: 870px) {
