@@ -177,15 +177,25 @@ This has also been completed.
 ### Build Process Journal
 
 1. _The build process went well on Day one, with the Blog aspect of the site being built out quickly and being filled with dummy Lorem Ipsum content data, for testing. I implemented the same Comment model taught in the LMS, to achieve CRUd state as quickly as possible. I am unhappy with the Javascript Modal method used here, however, and will likely replace this with a slug-based template method at a further point._
+
 2. _The Blog project is completed now, with prototype of the Comment model in place. The difficulty of styling the Bootstrap elements used however, has cemented my decision to move away from this choice in future design steps._
+
 3. _Recipe Model is now created and implemented - the Model itself uses a Choice field, which I was glad to improves as it should allow for much easier filtering further down the line. I will consult with Kevin, our Subject Matter Expert, for further guidance on the best way to achieve this. Using the BBC Food Recipe archive as a source, I have created many recipe pages, to allow for better filtering when this is possible._
+
 4. _I have created a Home app, to create a bespoke Home Page template and to house the User Profile. I have now successfully implemented this, but have run into a bug where new created Users are not automatically triggering a User Profile to be generated._
+
 5. _I have resolved the previous bug and User Profiles are now working as intended. I have built out the filtering system following an online guide, and it is working in repeating testing. I am moving onto creating the User Recipe submission form._
+
 6. _I have successfylly created the recipe form, but it is more basic than I'd prefer. I have replaced this with a Cripsy Form, and added Summernote Content fields, to allow for more formatting options for users when working through the form. I have also moved back to the Filtering system, amending this to offer the option to sort through User-submitted Recipes as well, along with better navigation options following Kevin's feedback and guidance, in our previous session._
+
 7. _I have started work on a Search system, to allow for more detailed navigation. I have encounted a small bug where Blog pages are not included as part of the Search results. I have been able to resolve the previous bug now, and the Search results display both Blog and Recipe results._
+
 8. _The content on the Recipe Submit form is currently too small on Mobile Screens. I have added a warning message and hidden the content on screens this size, and made other changes to the SummerNote integration to make this more workable on smaller screens and break-points._ 
+
 9. _I have started work on the Recipe model and View, to update the Recipe Page template. I have added the Review fully and added some Javascript to update the Rating field's styling into full stars, for an improved UI and more immediate visibility._
+
 10. _The Review Comment model has been fully implemented now, and testing has proved that the Comments are correctly loading in the Admin space for moderators' approval when submitted. The recipe page is now finalised._
+
 11. _I have added a randomiser on the Home Page temmplate, to further flesh out the content here and offer an more-immediate and visble way to access the Recipes._ 
 
 ## Features
