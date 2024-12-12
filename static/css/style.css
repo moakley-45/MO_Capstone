@@ -5,6 +5,21 @@ body {
     color: #f0ffff;
 }
 
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
 a {
   color: #A0C5FE;
 }
@@ -145,6 +160,10 @@ button.btn.btn-outline-success.search-butto:hover {
   }
 
 /* Footer Styles */
+
+.footer-bar {
+  margin-top: auto;
+}
 
 .row.justify-content-center {
   margin-bottom: 15px;

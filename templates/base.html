@@ -24,80 +24,81 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg bg-dark">
-      <div class="container-fluid d-flex justify-content-between align-items-center"> <!-- Added flex classes -->
-          <div class="toggler-space">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-          </div>
-          <div class="nav-icon-space mx-auto">
-              <a class="nav-link" aria-current="page" href="{% url 'home' %}">
-                  <div class="toggler-nav-image-container">
-                      <img class='nav-image' src="{% static 'images/brand_image.png' %}" alt="Simply Sprouts">
-                  </div>
-              </a>
-          </div>
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <!-- Added flex classes -->
+        <div class="toggler-space">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="nav-icon-space mx-auto">
+          <a class="nav-link" aria-current="page" href="{% url 'home' %}">
+            <div class="toggler-nav-image-container">
+              <img class='nav-image' src="{% static 'images/brand_image.png' %}" alt="Simply Sprouts">
+            </div>
+          </a>
+        </div>
       </div>
-          <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center"> 
-                  <li class="image-link nav-item">
-                      <a class="nav-link" aria-current="page" href="{% url 'home' %}">
-                        <div class="menu-nav-image-container">
-                          <img class='nav-image' src="{% static 'images/brand_image.png' %}" alt="Simply Sprouts">
-                        </div>  
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'recipes:recipes_main' %}">All Recipes</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          Recipes by cuisine
-                      </a>
-                      <ul class="dropdown-menu bg-dark">
-                          {% for code, name in CUISINE_CHOICES %}
-                          <li><a class="dropdown-item bg-dark" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
-                          {% endfor %}
-                      </ul>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'blog:blog_main' %}">Our Blog</a>
-                  </li>
-                  {% if user.is_authenticated %}
-                  <li class="nav-item">
-                      <a class="nav-link {% if request.path == submit_recipe_url %}active{% endif %}" aria-current="page"
-                          href="{% url 'recipes:submit_recipe' %}">Submit Recipe</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" aria-current="page"
-                          href="{% url 'profile' %}">Edit Profile</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                          href="{% url 'account_logout' %}">Logout</a>
-                  </li>
-                  {% else %}
-                  <li class="nav-item">
-                      <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                          href="{% url 'account_login' %}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                          href="{% url 'account_signup' %}">Register</a>
-                  </li>
-                  {% endif %}
-              </ul>
-              <form class="d-flex mb-2 mb-lg-0 align-items-center" role="search" action="{% url 'search' %}" method="GET">
-                  <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success search-button" type="submit">
-                      <span class="icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                      <span class="label">Search</span>
-                  </button>
-              </form>
-          </div>
-  </nav>
+      <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+          <li class="image-link nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'home' %}">
+              <div class="menu-nav-image-container">
+                <img class='nav-image' src="{% static 'images/brand_image.png' %}" alt="Simply Sprouts">
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'recipes:recipes_main' %}">All Recipes</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Recipes by cuisine
+            </a>
+            <ul class="dropdown-menu bg-dark">
+              {% for code, name in CUISINE_CHOICES %}
+              <li><a class="dropdown-item bg-dark" href="{% url 'recipes:cuisine_recipes' code %}">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:blog_main' %}">Our Blog</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == submit_recipe_url %}active{% endif %}" aria-current="page"
+              href="{% url 'recipes:submit_recipe' %}">Submit Recipe</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" aria-current="page"
+              href="{% url 'profile' %}">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_signup' %}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+        <form class="d-flex mb-2 mb-lg-0 align-items-center" role="search" action="{% url 'search' %}" method="GET">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success search-button" type="submit">
+            <span class="icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span class="label">Search</span>
+          </button>
+        </form>
+      </div>
+    </nav>
 
     <!-- User confirmation-->
     {% if user.is_authenticated %}
@@ -131,55 +132,66 @@
     </div>
   </header>
 
-  <main>
+  <div class="main-container">
+    <main class="main-content">
 
-    {% block content %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
 
-  </main>
+    </main>
 
-  <footer class="footer-bar bg-dark text-white text-center text-lg-start">
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-          <h5 class="text-uppercase">About Us</h5>
-          <p>
-            We are a team dedicated to providing the best recipes and culinary experiences.
-          </p>
+    <footer class="footer-bar bg-dark text-white text-center text-lg-start">
+      <div class="container p-4">
+        <div class="row">
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase">About Us</h5>
+            <p>
+              We are a team dedicated to providing the best recipes and culinary experiences.
+            </p>
+          </div>
+
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Contact Us</h5>
+            <p>Email: contact@simply-sprouts.com</p>
+            <p>Phone: +123456789</p>
+          </div>
         </div>
 
-        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Contact Us</h5>
-          <p>Email: contact@simply-sprouts.com</p>
-          <p>Phone: +123456789</p>
+        <hr class="my-4">
+
+        <div class="row justify-content-center">
+          <div class="col-md-12 text-center">
+            <h5 class="text-uppercase">Follow Us</h5>
+            <a href="https://www.facebook.com/Code.InstituteIRL/?locale=en_GB" target="_blank" class="text-white me-4"
+              aria-label="Follow us on Facebook"><span class="icon-wrapper"><i class="fab fa-facebook-f"
+                  aria-hidden="true"></i></span></a><a href="https://bsky.app/starter-pack-short/FYjVVoP"
+              target="_blank" class="text-white me-4" aria-label="Follow us on Bluesky"><span class="icon-wrapper"><i
+                  class="fa-brands fa-bluesky" aria-hidden="true"></i></span></a><a
+              href="https://www.instagram.com/codeinstitute/" target="_blank" class="text-white me-4"
+              aria-label="Follow us on Instagram"><span class="icon-wrapper"><i class="fab fa-instagram"
+                  aria-hidden="true"></i></span></a><a href="https://uk.linkedin.com/school/code-institute/"
+              target="_blank" class="text-white me-4" aria-label="Follow us on LinkedIn"><span class="icon-wrapper"><i
+                  class="fab fa-linkedin-in" aria-hidden="true"></i></span></a>
+          </div>
         </div>
       </div>
 
-      <hr class="my-4">
-
-      <div class="row justify-content-center">
-        <div class="col-md-12 text-center">
-          <h5 class="text-uppercase">Follow Us</h5>
-          <a href="https://www.facebook.com/Code.InstituteIRL/?locale=en_GB" target="_blank" class="text-white me-4" aria-label="Follow us on Facebook"><span class="icon-wrapper"><i class="fab fa-facebook-f" aria-hidden="true"></i></span></a><a href="https://bsky.app/starter-pack-short/FYjVVoP" target="_blank" class="text-white me-4" aria-label="Follow us on Bluesky"><span class="icon-wrapper"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></span></a><a href="https://www.instagram.com/codeinstitute/" target="_blank" class="text-white me-4" aria-label="Follow us on Instagram"><span class="icon-wrapper"><i class="fab fa-instagram" aria-hidden="true"></i></span></a><a href="https://uk.linkedin.com/school/code-institute/" target="_blank" class="text-white me-4" aria-label="Follow us on LinkedIn"><span class="icon-wrapper"><i class="fab fa-linkedin-in" aria-hidden="true"></i></span></a>
+      <div class="text-center p-3" style="background-color: rgba(255, 255, 255, 0.1);">
+        © 2024 Simply Sprouts
       </div>
-      </div>
-    </div>
-
-    <div class="text-center p-3" style="background-color: rgba(255, 255, 255, 0.1);">
-      © 2024 Simply Sprouts
-    </div>
-  </footer>
+    </footer>
+  </div>
 
   <!-- Bootstrap JS -->
-<script>
-  const recipeSlug = "{{ recipe.slug }}";
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-</script>
+  <script>
+    const recipeSlug = "{{ recipe.slug }}";
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+  </script>
 
-{% block extras %}
-{% endblock %}
+  {% block extras %}
+  {% endblock %}
 
 </body>
 
