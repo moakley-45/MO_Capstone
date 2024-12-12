@@ -13,6 +13,7 @@ import random
 import logging
 
 
+""" Controls the Recipe functionality """
 class RecipeView(generic.ListView):
     model = Recipe
     template_name = "recipes/recipes_main.html"
@@ -121,7 +122,7 @@ def recipe_detail(request, slug):
 
 logger = logging.getLogger(__name__)
 
-
+""" Controls Review Edit functionality """
 @login_required
 def edit_review(request, slug, review_id):
     logger.debug(
@@ -168,6 +169,7 @@ def edit_review(request, slug, review_id):
         return redirect('recipes:recipe_detail', slug=slug)
 
 
+""" Controls Review Deletion functionality """
 @login_required
 def delete_review(request, slug, review_id):
     review = get_object_or_404(Review, id=review_id)
@@ -186,6 +188,7 @@ def delete_review(request, slug, review_id):
         {'review': review})
 
 
+""" Controls Recipe Submission functionality """
 @login_required
 def submit_recipe(request):
     if request.method == 'POST':
@@ -209,6 +212,7 @@ def submit_recipe(request):
     return render(request, 'recipes/submit_recipe.html', {'form': form})
 
 
+""" Controls Review Submission functionality """
 @login_required
 def submit_review(request, slug):
     recipe = get_object_or_404(Recipe, slug=slug)
@@ -245,6 +249,7 @@ def submit_review(request, slug):
     return render(request, 'recipes/recipes_page.html', context)
 
 
+""" Controls Review Comment Submission functionality """
 @login_required
 def add_review_comment(request, slug, review_id):
     recipe = get_object_or_404(Recipe, slug=slug)
@@ -261,6 +266,7 @@ def add_review_comment(request, slug, review_id):
     return redirect('recipes:recipe_detail', slug=slug)
 
 
+""" Controls Review Comment Edit functionality """
 @login_required
 def review_comment_edit(request, slug, review_id, comment_id):
     recipe = get_object_or_404(Recipe, slug=slug)
@@ -291,7 +297,7 @@ def review_comment_edit(request, slug, review_id, comment_id):
     }
     return render(request, 'recipes/edit_comment.html', context)
 
-
+""" Controls Review Comment Deletion functionality """
 @login_required
 def review_comment_delete(request, slug, review_id, comment_id):
     recipe = get_object_or_404(Recipe, slug=slug)

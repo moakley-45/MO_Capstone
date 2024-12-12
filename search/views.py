@@ -5,6 +5,7 @@ from recipes.models import Recipe
 from blog.models import Blog_Post
 
 
+""" Controls the Search results functionality """
 def search_view(request):
     query = request.GET.get('q')
     combined_results = []

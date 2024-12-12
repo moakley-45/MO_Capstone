@@ -6,14 +6,19 @@ from django.contrib.auth.decorators import login_required
 from .forms import CommentForm
 from django.contrib import messages
 
+
+""" Controls Blog Main Page render """
+
+
 class BlogMainView(generic.ListView):
     model = Blog_Post
     template_name = "blog/blog_main.html"
     context_object_name = 'blog_posts'
-    paginate_by = 6 
+    paginate_by = 6
 
     def get_queryset(self):
         return Blog_Post.objects.all().order_by('-created_on')
+
 
 def blog_post_detail(request, slug):
     queryset = Blog_Post.objects.filter(status=1)
@@ -26,10 +31,14 @@ def blog_post_detail(request, slug):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.author = request.user
-            comment.post = blog_post 
+            comment.post = blog_post
             comment.save()
-            messages.success(request, 'Your comment has been successfully submitted and is awaiting approval from our Admin team - check back soon!')
-            return redirect('blog:blog_post_detail', slug=slug)  
+            messages.success(
+                request,
+                'Your comment has been successfully submitted and is '
+                'awaiting approval from our Admin team - check back soon!'
+                )
+            return redirect('blog:blog_post_detail', slug=slug)
     else:
         comment_form = CommentForm()
 
@@ -44,6 +53,10 @@ def blog_post_detail(request, slug):
         },
     )
 
+
+""" Controls Comment Submission functionality """
+
+
 @login_required
 def add_comment(request, blog_post_id):
     blog_post = get_object_or_404(Blog_Post, id=blog_post_id)
@@ -56,8 +69,15 @@ def add_comment(request, blog_post_id):
                 body=body,
                 approved=False
             )
-            messages.success(request, 'Your comment has been submitted and is awaiting approval.')
-    return redirect('blog:blog_post_detail', slug=slug)  
+            messages.success(
+                request,
+                'Your comment has been submitted and is awaiting approval.'
+                )
+    return redirect('blog:blog_post_detail', slug=slug)
+
+
+""" Controls Comment Edit functionality """
+
 
 @login_required
 def comment_edit(request, slug, comment_id):
@@ -72,7 +92,7 @@ def comment_edit(request, slug, comment_id):
         comment_form = CommentForm(data=request.POST, instance=comment)
 
         if comment_form.is_valid() and comment.author == request.user:
-            comment_form.save() 
+            comment_form.save()
             messages.success(request, 'Comment Updated!')
             return redirect('blog:blog_post_detail', slug=slug)
         else:
@@ -86,6 +106,10 @@ def comment_edit(request, slug, comment_id):
         'blog_post': blog_post,
         'comment': comment,
     })
+
+
+""" Controls Comment Deletion functionality """
+
 
 @login_required
 def comment_delete(request, slug, comment_id):
@@ -102,4 +126,4 @@ def comment_delete(request, slug, comment_id):
     else:
         messages.error(request, 'You can only delete your own comments!')
 
-    return redirect('blog:blog_post_detail', slug=slug)  
+    return redirect('blog:blog_post_detail', slug=slug)

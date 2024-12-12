@@ -126,7 +126,31 @@ The full scheme can be seen below:
 
 ### Wireframes
 
+**Desktop Wireframes:**
 
+![Simply Sprouts Home Page wireframe](media/WFD_Home_Page.png)
+![Simply Sprouts All Recipes Page wireframe](media/WFD_All_Recipes.png)
+![Simply Sprouts Specific Cuisine Page wireframe](media/WFD_Specific_Cuisine_Page.png)
+![Simply Sprouts Recipe Page wireframe](media/WFD_Recipe_Page.png)
+![Simply Sprouts Submit Recipe Page wireframe](media/WFD_Submit_Recipe_Page.png)
+![Simply Sprouts Blog Main Page wireframe](media/WFD_Blog_Main.png)
+![Simply Sprouts Blog Post Page wireframe](media/WFD_Blog_Post.png)
+![Simply Sprouts Sign-In Page wireframe](media/WFD-Sign_In_Page.png)
+![Simply Sprouts User Profile Page wireframe](media/WFD_User_Profile_Page.png)
+![Simply Sprouts Search Page wireframe](media/WRD_Search_Page.png)
+
+**Mobile Wireframes:**
+
+![Simply Sprouts Home Page wireframe](media/WFM-Home_Page.png)
+![Simply Sprouts All Recipes Page wireframe](media/WFM-All_Recipes_Page.png)
+![Simply Sprouts Specific Cuisine Page wireframe](media/WFM-Specific_Cuisine_Page.png)
+![Simply Sprouts Recipe Page wireframe](media/WFM-Recipe_Page.png)
+![Simply Sprouts Submit Recipe Page wireframe](media/WFM-Recipe_Submission_Page.png)
+![Simply Sprouts Blog Main Page wireframe](media/WFM-Blog_Main_Page.png)
+![Simply Sprouts Blog Post Page wireframe](media/WFM-Blog_Post_Page.png)
+![Simply Sprouts Sign-In Page wireframe](media/WFM-Sign_In_Page.png)
+![Simply Sprouts User Profile Page wireframe](media/WFM_User_Profile_Page.png)
+![Simply Sprouts Search Page wireframe](media/WFM-Search_Page.png)
 
 ## Database Schema - ERD Diagram
 

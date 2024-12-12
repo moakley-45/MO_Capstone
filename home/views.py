@@ -28,6 +28,9 @@ def profile(request):
     return render(request, template, context)
 
 
+""" Display the Randomiser on the Home Page. """
+
+
 class HomePageView(TemplateView):
     template_name = "home/home.html"
 
