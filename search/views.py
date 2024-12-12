@@ -1,6 +1,8 @@
 from django.db.models import Q
 from itertools import chain
 from django.shortcuts import render
+from recipes.models import Recipe
+from blog.models import Blog_Post
 
 
 def search_view(request):
